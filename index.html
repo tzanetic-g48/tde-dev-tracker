@@ -45,6 +45,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
 .tab{padding:10px 18px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
 .tab:hover{color:var(--text)}.tab.active{color:var(--text);border-bottom-color:var(--text)}
+/* KANBAN */
 .kanban{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .col{background:var(--surface2);border-radius:var(--rl);padding:12px}
 .col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -65,7 +66,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tag-pdp{background:var(--purple-l);color:var(--purple)}
 .tag-sitewide{background:var(--amber-l);color:var(--amber)}
 .empty{font-size:12px;color:var(--text3);text-align:center;padding:20px 0}
-.hours-view{display:none}
+/* HOURS TABLE */
+.hours-view,.brief-view{display:none}
 .htable{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--rl);overflow:hidden;border:1px solid var(--border)}
 .htable th{background:var(--surface2);padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text2);border-bottom:1px solid var(--border)}
 .htable td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
@@ -77,6 +79,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sp-review{background:var(--amber-l);color:var(--amber)}
 .sp-done{background:var(--green-l);color:var(--green-d)}
 .htable-footer td{background:var(--surface2);font-weight:600}
+/* BRIEF */
+.brief-wrap{display:flex;gap:20px;align-items:flex-start}
+.brief-nav{width:200px;flex-shrink:0;position:sticky;top:80px}
+.brief-nav-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:10px}
+.brief-nav a{display:block;font-size:13px;color:var(--text2);text-decoration:none;padding:5px 10px;border-radius:var(--r);margin-bottom:2px;transition:all .15s;border-left:2px solid transparent}
+.brief-nav a:hover{background:var(--surface2);color:var(--text)}
+.brief-nav a.active{background:var(--surface2);color:var(--text);border-left-color:var(--text)}
+.brief-content{flex:1;min-width:0}
+.brief-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1rem;scroll-margin-top:80px}
+.brief-section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.brief-num{width:28px;height:28px;border-radius:50%;background:var(--text);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brief-section-title{font-size:16px;font-weight:600}
+.brief-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.bpill{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:500}
+.bp-critical{background:var(--red);color:#fff}
+.bp-high{background:var(--amber-l);color:var(--amber)}
+.bp-collection{background:var(--blue-l);color:var(--blue)}
+.bp-pdp{background:var(--purple-l);color:var(--purple)}
+.bp-sitewide{background:var(--amber-l);color:var(--amber)}
+.bp-phase{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.brief-subsection{margin-bottom:1rem}
+.brief-subsection-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.brief-list{list-style:none;padding:0}
+.brief-list li{font-size:13px;padding:5px 0 5px 16px;position:relative;line-height:1.5;border-bottom:1px solid var(--border);color:var(--text)}
+.brief-list li:last-child{border-bottom:none}
+.brief-list li::before{content:"·";position:absolute;left:4px;color:var(--text3)}
+.brief-list li strong{font-weight:600}
+.files-block{background:var(--surface2);border-radius:var(--r);padding:10px 12px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--text2);line-height:1.8}
+.data-callout{background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 14px;margin-bottom:1rem;font-size:13px;color:var(--green-d)}
+.data-callout strong{font-weight:600}
+.ref-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--blue);text-decoration:none;background:var(--blue-l);padding:3px 10px;border-radius:99px}
+.ref-link:hover{opacity:.8}
+/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center;padding:1rem}
 .overlay.open{display:flex}
 .modal{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:1.5rem}
@@ -93,7 +128,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .bullet-list li{font-size:13px;padding:4px 0 4px 16px;position:relative;line-height:1.5;border-bottom:1px solid var(--border)}
 .bullet-list li:last-child{border-bottom:none}
 .bullet-list li::before{content:"·";position:absolute;left:4px;color:var(--text3)}
-.files-block{background:var(--surface2);border-radius:var(--r);padding:10px 12px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--text2);line-height:1.8}
+/* HOURS IN MODAL */
 .hours-section{background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:14px;margin-bottom:1rem}
 .hours-section-title{font-size:12px;font-weight:600;color:var(--green-d);margin-bottom:10px}
 .hours-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
@@ -116,6 +151,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .status-btn:hover{border-color:var(--border2);color:var(--text)}
 .status-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
 .status-btn.active-done{background:var(--green);color:#fff;border-color:var(--green)}
+/* SETUP */
 .setup-modal{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);width:100%;max-width:460px;padding:1.5rem}
 .setup-modal h2{font-size:16px;font-weight:600;margin-bottom:4px}
 .setup-modal p{font-size:13px;color:var(--text2);margin-bottom:1.25rem}
@@ -133,7 +169,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:10px 20px;border-radius:var(--r);font-size:13px;z-index:200;transition:transform .3s ease;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.success{background:var(--green)}.toast.error{background:var(--red)}
-@media(max-width:1000px){.kanban{grid-template-columns:repeat(2,1fr)}.summary{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1000px){.kanban{grid-template-columns:repeat(2,1fr)}.summary{grid-template-columns:repeat(3,1fr)}.brief-nav{display:none}.brief-wrap{flex-direction:column}}
 @media(max-width:600px){.kanban{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}.status-buttons{grid-template-columns:repeat(2,1fr)}.hours-row{flex-direction:column}}
 </style>
 </head>
@@ -147,6 +183,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="top-btn" onclick="openSetup()">Notifications</button>
   </div>
 </div>
+
 <div class="main">
   <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>7 developer features &middot; click any card to view details, update status, and log hours</p></div>
   <div class="summary">
@@ -164,15 +201,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="tabs">
     <div class="tab active" id="tab-board" onclick="switchTab('board')">Board view</div>
     <div class="tab" id="tab-hours" onclick="switchTab('hours')">Hours &amp; spend</div>
+    <div class="tab" id="tab-brief" onclick="switchTab('brief')">Brief &amp; specs</div>
   </div>
+
+  <!-- BOARD -->
   <div id="view-board">
     <div class="kanban">
-      <div class="col"><div class="col-header"><span class="col-name">To do</span><span class="col-count" id="c-todo">7</span></div><div id="col-todo"></div></div>
-      <div class="col"><div class="col-header"><span class="col-name">In progress</span><span class="col-count" id="c-progress">0</span></div><div id="col-progress"><div class="empty">no tasks yet</div></div></div>
-      <div class="col"><div class="col-header"><span class="col-name">In review</span><span class="col-count" id="c-review">0</span></div><div id="col-review"><div class="empty">no tasks yet</div></div></div>
-      <div class="col"><div class="col-header"><span class="col-name">Done</span><span class="col-count" id="c-done">0</span></div><div id="col-done"><div class="empty">no tasks yet</div></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">7</span></div><div id="col-todo"></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">🔧 In progress</span><span class="col-count" id="c-progress">0</span></div><div id="col-progress"><div class="empty">no tasks yet</div></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">👀 In review</span><span class="col-count" id="c-review">0</span></div><div id="col-review"><div class="empty">no tasks yet</div></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">✅ Done</span><span class="col-count" id="c-done">0</span></div><div id="col-done"><div class="empty">no tasks yet</div></div></div>
     </div>
   </div>
+
+  <!-- HOURS -->
   <div id="view-hours" class="hours-view">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:10px">
       <div style="display:flex;align-items:center;gap:10px">
@@ -195,8 +237,339 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </tr></tfoot>
     </table>
   </div>
+
+  <!-- BRIEF -->
+  <div id="view-brief" class="brief-view">
+    <div class="brief-wrap">
+      <div class="brief-nav">
+        <div class="brief-nav-title">Features</div>
+        <a href="#brief-1" onclick="scrollTo('brief-1')">F1 &mdash; Filter redesign</a>
+        <a href="#brief-2" onclick="scrollTo('brief-2')">F2 &mdash; Colour swatches</a>
+        <a href="#brief-3" onclick="scrollTo('brief-3')">F3 &mdash; Quick view modal</a>
+        <a href="#brief-4" onclick="scrollTo('brief-4')">F4 &mdash; Quick-add button</a>
+        <a href="#brief-5" onclick="scrollTo('brief-5')">F5 &mdash; Complete the look</a>
+        <a href="#brief-6" onclick="scrollTo('brief-6')">F6 &mdash; Recently viewed</a>
+        <a href="#brief-7" onclick="scrollTo('brief-7')">F7 &mdash; Search suggestions</a>
+      </div>
+      <div class="brief-content">
+
+        <!-- OVERVIEW -->
+        <div class="brief-section" style="background:var(--text);color:#fff;border-color:var(--text)">
+          <div style="font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">TDE CRO &amp; UX Brief &mdash; March 2026</div>
+          <div style="font-size:20px;font-weight:600;margin-bottom:8px">Developer brief &amp; technical specifications</div>
+          <div style="font-size:13px;opacity:.7;line-height:1.6">7 features to improve product discovery, conversion, and UX on thedailyedited.com. Based on Microsoft Clarity session data (1,701 sessions) and competitive research (Cuyana, Winnie &amp; Co). Click any feature below to read the full spec.</div>
+          <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap">
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Phase 2&ndash;5</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">140h estimated</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Shopify / Liquid</span>
+          </div>
+        </div>
+
+        <!-- FEATURE 1 -->
+        <div class="brief-section" id="brief-1">
+          <div class="brief-section-header">
+            <div class="brief-num">1</div>
+            <div class="brief-section-title">Collection filter redesign (Cuyana-style)</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-critical">Critical</span>
+            <span class="bpill bp-collection">Collection page</span>
+            <span class="bpill bp-phase">Phase 2 &middot; 5&ndash;7 days &middot; Est 35h</span>
+            <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
+          </div>
+          <div class="data-callout"><strong>Why:</strong> 263 quick back clicks/week on /collections/personalised-bags. 724 mobile vs 472 desktop. Users paginating through 3+ pages, losing scroll position, giving up.</div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">1A &mdash; Horizontal category pills</div>
+            <ul class="brief-list">
+              <li>Scrollable pill row above product grid on all collection pages</li>
+              <li>Pills: <strong>All Bags | Tote Bags | Shoulder Bags | Crossbody | Travel | Work | Clutches</strong></li>
+              <li>Active pill: black bg, white text. Inactive: white bg, black border</li>
+              <li>Min <strong>44px height</strong> &mdash; current size causing dead clicks on mobile</li>
+              <li>One-tap AJAX filtering, no page reload. URL updates with filter params</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">1B &mdash; Desktop sidebar filters (&ge;990px)</div>
+            <ul class="brief-list">
+              <li>Always-visible left column (260px fixed), sticky top:20px</li>
+              <li>Filter sections: Product Type (checkboxes), Colour (swatches), Personalisation (toggle), Price Range (slider)</li>
+              <li>Dynamic count: <em>&ldquo;Showing 12 of 47 products&rdquo;</em></li>
+              <li>Reset all filters link at top</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">1C &mdash; Mobile bottom sheet (&lt;990px)</div>
+            <ul class="brief-list">
+              <li>Full-screen bottom sheet triggered by Filter &amp; Sort button</li>
+              <li><strong>All filter options min 48px height</strong> &mdash; fixes current dead click issue</li>
+              <li>Apply button at bottom applies all at once (not one-by-one)</li>
+              <li>Active filter count badge on trigger: <em>&ldquo;Filter (2)&rdquo;</em></li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">1D &mdash; Active filter pills row</div>
+            <ul class="brief-list">
+              <li>Dismissible pill tags below category pills showing active filters</li>
+              <li>Example: [Tote Bag &times;] [Black &times;] [Clear all]</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">1E &mdash; Load More (replace pagination)</div>
+            <ul class="brief-list">
+              <li>Replace numbered pagination with <em>&ldquo;Load More (24 remaining)&rdquo;</em> button</li>
+              <li>AJAX append &mdash; preserves scroll position when returning from product page</li>
+              <li>URL updates with ?page=2 for back-button support</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to modify</div>
+            <div class="files-block">sections/main-collection-product-grid.liquid<br>snippets/facets.liquid<br>assets/component-facets.css<br>assets/facets.js</div>
+          </div>
+        </div>
+
+        <!-- FEATURE 2 -->
+        <div class="brief-section" id="brief-2">
+          <div class="brief-section-header">
+            <div class="brief-num">2</div>
+            <div class="brief-section-title">Colour swatches on collection grid</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-critical">Critical</span>
+            <span class="bpill bp-collection">Collection page</span>
+            <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 20h</span>
+            <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
+          </div>
+          <div class="data-callout"><strong>Why:</strong> Users are clicking into products just to see colour options, then immediately going back. Swatches on the collection card let them see variants without navigating away.</div>
+          <ul class="brief-list">
+            <li>Colour swatch dots below product name on each collection card</li>
+            <li>Clicking a swatch swaps card image to that colour variant via AJAX</li>
+            <li>Min <strong>20&times;20px circles</strong>, 6px gap, max 6 visible with <em>+N more</em> overflow</li>
+            <li>Active swatch: ring/border indicator. Hover shows colour name tooltip</li>
+            <li>Update URL with <code>?variant=ID</code> on swatch selection for shareability</li>
+          </ul>
+          <div class="brief-subsection" style="margin-top:1rem">
+            <div class="brief-subsection-title">TDE colour palette</div>
+            <ul class="brief-list">
+              <li><strong>Black</strong> #1A1A1A &mdash; all product types</li>
+              <li><strong>White / Ivory</strong> #F5F0EB &mdash; cases, wallets</li>
+              <li><strong>Tan / Sand</strong> #C4A882 &mdash; bags, wallets, travel</li>
+              <li><strong>Mauve / Blush</strong> #C4A0A0 &mdash; beauty, bags, cases</li>
+              <li><strong>Chestnut / Brown</strong> #8B5E3C &mdash; bags, passport holders</li>
+              <li><strong>Scarlet / Red</strong> #CC2222 &mdash; cases, accessories</li>
+              <li><strong>Grey</strong> #9E9E9E &mdash; cases, tech</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to modify</div>
+            <div class="files-block">snippets/product-card.liquid<br>assets/component-card.css<br>assets/card.js</div>
+          </div>
+        </div>
+
+        <!-- FEATURE 3 -->
+        <div class="brief-section" id="brief-3">
+          <div class="brief-section-header">
+            <div class="brief-num">3</div>
+            <div class="brief-section-title">Quick view modal (Cuyana-style)</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-high">High</span>
+            <span class="bpill bp-collection">Collection page</span>
+            <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 25h</span>
+            <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
+          </div>
+          <div class="data-callout"><strong>Why:</strong> Session recordings show users clicking into products for 3&ndash;5 seconds then immediately going back &mdash; just checking price and colour. Quick View surfaces this without leaving the collection page.</div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Trigger</div>
+            <ul class="brief-list">
+              <li>Quick View button appears on hover (desktop) / always visible (mobile)</li>
+              <li>Positioned at bottom of product card, full width</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Modal content</div>
+            <ul class="brief-list">
+              <li>Images left column with thumbnail strip. Product info right column</li>
+              <li>Name, price, Afterpay instalment messaging, colour swatches, Add to Bag CTA</li>
+              <li>View full details link below CTA &mdash; navigates to PDP</li>
+              <li>Close: X button, ESC key, click outside</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">TDE personalisation note</div>
+            <ul class="brief-list">
+              <li><strong>For personalised products:</strong> show simplified initials-only entry field inside Quick View &mdash; do NOT show full personalisation widget</li>
+              <li><strong>For standard products:</strong> standard variant selection + Add to Bag</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Mobile behaviour</div>
+            <ul class="brief-list">
+              <li>Opens as bottom sheet (85vh), swipe down to dismiss</li>
+              <li>Focus trapped for accessibility (WCAG 2.1)</li>
+              <li>Render via Shopify Section Rendering API &mdash; cache in sessionStorage</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to create/modify</div>
+            <div class="files-block">snippets/quick-view.liquid &mdash; create new<br>snippets/product-card.liquid &mdash; add trigger button<br>assets/quick-view.js &mdash; create new<br>assets/quick-view.css &mdash; create new</div>
+          </div>
+        </div>
+
+        <!-- FEATURE 4 -->
+        <div class="brief-section" id="brief-4">
+          <div class="brief-section-header">
+            <div class="brief-num">4</div>
+            <div class="brief-section-title">Quick-add &lsquo;Add to cart&rsquo; button</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-high">High</span>
+            <span class="bpill bp-collection">Collection page</span>
+            <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 12h</span>
+          </div>
+          <ul class="brief-list">
+            <li>Show Quick Add <strong>only</strong> for single-variant products with no personalisation required</li>
+            <li>For personalised or multi-variant products &mdash; show Quick View instead (Feature 3)</li>
+            <li>One tap: adds to cart, shows confirmation animation, updates cart count</li>
+            <li>No page navigation required</li>
+          </ul>
+          <div class="brief-subsection" style="margin-top:1rem">
+            <div class="brief-subsection-title">Product eligibility</div>
+            <ul class="brief-list">
+              <li>iPhone cases (personalisation required) &rarr; <strong>Quick View</strong></li>
+              <li>Bags (multiple colours/sizes) &rarr; <strong>Quick View</strong></li>
+              <li>Luggage tags (simple, 1 variant) &rarr; <strong>Quick Add</strong></li>
+              <li>Keyrings (simple, 1 variant) &rarr; <strong>Quick Add</strong></li>
+              <li>Gift cards &rarr; <strong>Quick Add</strong></li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to modify</div>
+            <div class="files-block">snippets/product-card.liquid<br>assets/card.js</div>
+          </div>
+        </div>
+
+        <!-- FEATURE 5 -->
+        <div class="brief-section" id="brief-5">
+          <div class="brief-section-header">
+            <div class="brief-num">5</div>
+            <div class="brief-section-title">&lsquo;Complete the look&rsquo; section on PDP</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-high">High</span>
+            <span class="bpill bp-pdp">Product page</span>
+            <span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 18h</span>
+            <a class="ref-link" href="https://winnieandco.com/collections/crossbody-bags/products/camille-handle-bag-almond-caramel" target="_blank">Reference: Winnie &amp; Co &#8599;</a>
+          </div>
+          <ul class="brief-list">
+            <li>Horizontal product row below main product description &mdash; title: <strong>Complete the look</strong></li>
+            <li>2&ndash;4 complementary products: image, name, price, individual Add button</li>
+            <li>Products curated via metafield: <code>custom.complete_the_look</code> (list of product references, max 4)</li>
+            <li>AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid</li>
+            <li><strong>Initial setup:</strong> manually curate top 20 best-selling products first</li>
+          </ul>
+          <div class="brief-subsection" style="margin-top:1rem">
+            <div class="brief-subsection-title">Content strategy</div>
+            <ul class="brief-list">
+              <li>Bags &rarr; pair with: matching wallet, luggage tag, keyring, passport holder</li>
+              <li>Phone cases &rarr; pair with: AirPods case, card holder, keyring</li>
+              <li>Travel wallets &rarr; pair with: passport holder, luggage tag, travel wetpack</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to modify</div>
+            <div class="files-block">sections/main-product.liquid<br>snippets/complete-the-look.liquid &mdash; create new<br>assets/product.js</div>
+          </div>
+        </div>
+
+        <!-- FEATURE 6 -->
+        <div class="brief-section" id="brief-6">
+          <div class="brief-section-header">
+            <div class="brief-num">6</div>
+            <div class="brief-section-title">&lsquo;Recently viewed&rsquo; replacing &lsquo;You may also like&rsquo;</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-high">High</span>
+            <span class="bpill bp-pdp">Product page</span>
+            <span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 14h</span>
+          </div>
+          <div class="data-callout"><strong>Why:</strong> Session recordings show users navigating back to previously viewed products repeatedly. Recently Viewed reduces the need to use the back button, directly cutting quick back click rate.</div>
+          <ul class="brief-list">
+            <li>Store product IDs in <code>localStorage</code> as user browses (max 8 products, clear after 24h)</li>
+            <li>Display horizontal scroll row at bottom of PDP: <strong>Recently viewed</strong></li>
+            <li>Exclude currently viewed product. Fall back to You May Also Like if fewer than 2 items</li>
+            <li>Fetch product data via Shopify AJAX API. Render using Section Rendering API</li>
+            <li>localStorage key: <code>tde_recently_viewed</code> &mdash; JSON array of product IDs</li>
+          </ul>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to modify</div>
+            <div class="files-block">sections/main-product.liquid<br>snippets/recently-viewed.liquid &mdash; create new<br>assets/recently-viewed.js &mdash; create new</div>
+          </div>
+        </div>
+
+        <!-- FEATURE 7 -->
+        <div class="brief-section" id="brief-7">
+          <div class="brief-section-header">
+            <div class="brief-num">7</div>
+            <div class="brief-section-title">Search bar with product suggestions</div>
+          </div>
+          <div class="brief-meta">
+            <span class="bpill bp-high">High</span>
+            <span class="bpill bp-sitewide">Site-wide</span>
+            <span class="bpill bp-phase">Phase 4 &middot; 2&ndash;3 days &middot; Est 16h</span>
+          </div>
+          <div class="data-callout"><strong>Why:</strong> 77 quick back clicks on /search. Users searching for &ldquo;pouch&rdquo; browsed 3 pages of results and still didn&rsquo;t convert. Predictive search surfaces the right product before they finish typing.</div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Desktop</div>
+            <ul class="brief-list">
+              <li>Dropdown appears below search bar after 2+ characters typed</li>
+              <li>Shows up to 6 product suggestions: thumbnail image, name, price</li>
+              <li>Shows up to 3 collection suggestions: <em>&ldquo;In Bags&rdquo;, &ldquo;In Phone Cases&rdquo;</em></li>
+              <li>Keyboard navigation: arrow keys, enter, escape</li>
+              <li>&ldquo;See all X results for [query]&rdquo; link at bottom</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Mobile</div>
+            <ul class="brief-list">
+              <li>Full-screen search overlay with suggestions as list</li>
+              <li>Popular searches shown before typing: <em>iPhone 17 case, travel wallet, tote bag</em></li>
+              <li>Tap suggestion navigates directly to product</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Technical</div>
+            <ul class="brief-list">
+              <li>API: <code>/search/suggest.json?q={query}&amp;resources[type]=product,collection</code></li>
+              <li>Debounce input: 300ms. Cache results in sessionStorage by query string</li>
+              <li>Highlight matching text in suggestion results</li>
+            </ul>
+          </div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Shopify files to modify</div>
+            <div class="files-block">sections/header.liquid<br>snippets/predictive-search.liquid &mdash; create new<br>assets/predictive-search.js &mdash; create new<br>assets/predictive-search.css &mdash; create new</div>
+          </div>
+        </div>
+
+        <!-- TESTING -->
+        <div class="brief-section" style="background:var(--surface2)">
+          <div style="font-size:15px;font-weight:600;margin-bottom:1rem">Testing &amp; success metrics</div>
+          <ul class="brief-list">
+            <li>All filter options must have min <strong>44&times;44px tap target</strong> &mdash; verify with Chrome DevTools</li>
+            <li>All AJAX operations must update URL with filter/variant params</li>
+            <li>Scroll position must be preserved when returning from a product page</li>
+            <li>Quick back click rate on /collections/personalised-bags target: <strong>&lt;130/week</strong> (down from 263)</li>
+            <li>Search quick back clicks target: <strong>&lt;40/week</strong> (down from 77)</li>
+            <li>Test all features on iPhone Safari and Android Chrome before QA sign-off</li>
+            <li>Deploy to test theme first &mdash; share preview URL for TDE review before going live</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- TASK MODAL -->
 <div class="overlay" id="task-overlay">
   <div class="modal">
     <div class="modal-header">
@@ -221,6 +594,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="modal-label" style="margin-bottom:6px">Shopify files to modify</div>
     <div class="files-block" id="m-files"></div>
     <hr class="modal-divider">
+    <div style="margin-bottom:10px">
+      <button class="top-btn" style="width:100%;justify-content:center" onclick="closeModal();switchTab('brief');scrollToBrief(activeId)">&#128196; View full spec in Brief tab</button>
+    </div>
     <div class="status-section">
       <div class="status-label">Update status</div>
       <div class="status-buttons">
@@ -233,16 +609,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- SETUP MODAL -->
 <div class="overlay" id="setup-overlay">
   <div class="setup-modal">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem">
       <div><h2>Email notifications</h2><p>Get notified when a task is marked Done. Uses EmailJS &mdash; free, no server needed.</p></div>
       <button class="modal-close" onclick="closeSetup()">&#x2715;</button>
     </div>
-    <div class="field"><label>Your email (to receive notifications)</label><input type="email" id="to-email" placeholder="you@thedailyedited.com"></div>
+    <div class="field"><label>Your email</label><input type="email" id="to-email" placeholder="you@thedailyedited.com"></div>
     <div class="field"><label>EmailJS Public Key</label><input type="text" id="ejs-pubkey" placeholder="user_xxxxxxxxx"><div class="field-hint">EmailJS &rarr; Account &rarr; General &rarr; Public Key</div></div>
     <div class="field"><label>EmailJS Service ID</label><input type="text" id="ejs-service" placeholder="service_xxxxxxx"></div>
-    <div class="field"><label>EmailJS Template ID</label><input type="text" id="ejs-template" placeholder="template_xxxxxxx"><div class="field-hint">Template variables: {{task_num}}, {{task_name}}, {{hours_logged}}, {{completed_at}}</div></div>
+    <div class="field"><label>EmailJS Template ID</label><input type="text" id="ejs-template" placeholder="template_xxxxxxx"><div class="field-hint">Use variables: {{task_num}}, {{task_name}}, {{hours_logged}}, {{completed_at}}</div></div>
     <button class="save-btn" onclick="saveNotifications()">Save &amp; enable notifications</button>
     <div class="setup-footer">
       <button class="skip-btn" onclick="closeSetup()">Skip for now</button>
@@ -256,31 +633,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const TASKS=[
   {id:1,num:"Feature 1",page:"collection",priority:"critical",phase:"Phase 2 - 5-7 days",estHours:35,
    title:"Collection filter redesign (Cuyana-style)",
-   bullets:["Horizontal category pills - All Bags, Tote Bags, Shoulder Bags, Crossbody, Travel, Work, Clutches","Desktop sidebar - always visible, sticky, product type + colour + personalisation + price filters","Mobile bottom sheet - full-screen, min 48px tap targets, apply button, active filter count badge","Active filter pills row - dismissible tags with Clear all link","Load More replaces pagination - AJAX append, preserve scroll position, URL updates with ?page=2"],
+   bullets:["Horizontal category pills - All Bags, Tote Bags, Shoulder Bags, Crossbody, Travel, Work, Clutches","Desktop sidebar - always visible, sticky, with product type, colour, personalisation, price filters","Mobile bottom sheet - full-screen, min 48px tap targets, apply button, active filter count badge","Active filter pills row - dismissible tags with Clear all link","Load More replaces pagination - AJAX append, preserve scroll position, URL updates with ?page=2"],
    files:["sections/main-collection-product-grid.liquid","snippets/facets.liquid","assets/component-facets.css","assets/facets.js"]},
   {id:2,num:"Feature 2",page:"collection",priority:"critical",phase:"Phase 3 - 4-5 days",estHours:20,
    title:"Colour swatches on collection grid",
-   bullets:["Colour swatch dots below product name on each collection card","Clicking a swatch swaps card image to that colour variant via AJAX","Min 20x20px circles, 6px gap, max 6 visible with +N more overflow","Active swatch shows ring/border indicator. Hover shows colour name tooltip","Update URL with ?variant=ID on swatch selection for shareability"],
+   bullets:["Colour swatch dots below product name on each collection card","Clicking a swatch swaps card image to that colour variant via AJAX","Min 20x20px circles, 6px gap, max 6 visible with +N more overflow","Active swatch shows ring indicator. Hover shows colour name tooltip","Update URL with ?variant=ID on selection for shareability"],
    files:["snippets/product-card.liquid","assets/component-card.css","assets/card.js"]},
   {id:3,num:"Feature 3",page:"collection",priority:"high",phase:"Phase 3 - 4-5 days",estHours:25,
    title:"Quick view modal (Cuyana-style)",
-   bullets:["Quick View button on hover (desktop) / tap (mobile) on each product card","Modal: images left, product info right - name, price, Afterpay, swatches, Add to Bag","View full details link below CTA. ESC + click-outside to close","Mobile: opens as bottom sheet (85vh, swipe to dismiss)","Simplified personalisation entry for personalised products (initials field only)","Focus trapped for accessibility (WCAG 2.1). Render via Section Rendering API"],
+   bullets:["Quick View button on hover (desktop) / tap (mobile) on each product card","Modal: images left, product info right - name, price, Afterpay, swatches, Add to Bag","View full details link below CTA. ESC + click-outside to close","Mobile: opens as bottom sheet (85vh, swipe to dismiss)","Simplified personalisation entry for personalised products - initials field only","Focus trapped for accessibility (WCAG 2.1). Render via Section Rendering API"],
    files:["snippets/quick-view.liquid","snippets/product-card.liquid","assets/quick-view.js","assets/quick-view.css"]},
   {id:4,num:"Feature 4",page:"collection",priority:"high",phase:"Phase 3 - 4-5 days",estHours:12,
    title:"Quick-add 'Add to cart' button",
-   bullets:["Show Quick Add ONLY for single-variant products with no personalisation required","For personalised or multi-variant products: show Quick View button instead","One tap adds to cart, shows confirmation animation, updates cart count","No page navigation required"],
+   bullets:["Show Quick Add ONLY for single-variant products with no personalisation required","For personalised or multi-variant products: show Quick View instead","One tap adds to cart, shows confirmation animation, updates cart count","No page navigation required"],
    files:["snippets/product-card.liquid","assets/card.js"]},
   {id:5,num:"Feature 5",page:"pdp",priority:"high",phase:"Phase 5 - 3-4 days",estHours:18,
    title:"'Complete the look' section on PDP",
-   bullets:["Horizontal product row below main product description - title: Complete the look","2-4 complementary products: image, name, price, individual Add button","Products curated via metafield: custom.complete_the_look (list of product references, max 4)","AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid","Initial setup: manually curate top 20 best-selling products first"],
+   bullets:["Horizontal product row below main product description - Complete the look","2-4 complementary products: image, name, price, individual Add button","Products curated via metafield: custom.complete_the_look (max 4 references)","AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid","Initial setup: manually curate top 20 best-selling products first"],
    files:["sections/main-product.liquid","snippets/complete-the-look.liquid","assets/product.js"]},
   {id:6,num:"Feature 6",page:"pdp",priority:"high",phase:"Phase 5 - 3-4 days",estHours:14,
    title:"'Recently viewed' replacing 'You may also like'",
-   bullets:["Store product IDs in localStorage as user browses (max 8 products, clear after 24h)","Display horizontal scroll row at bottom of PDP: Recently viewed","Exclude currently viewed product. Fall back to You May Also Like if fewer than 2 items","Fetch product data via Shopify AJAX API. Render using Section Rendering API"],
+   bullets:["Store product IDs in localStorage as user browses (max 8, clear after 24h)","Display horizontal scroll row at bottom of PDP: Recently viewed","Exclude currently viewed product. Fall back to You May Also Like if fewer than 2","Fetch via Shopify AJAX API. Render using Section Rendering API"],
    files:["sections/main-product.liquid","snippets/recently-viewed.liquid","assets/recently-viewed.js"]},
   {id:7,num:"Feature 7",page:"sitewide",priority:"high",phase:"Phase 4 - 2-3 days",estHours:16,
    title:"Search bar with product suggestions",
-   bullets:["Desktop: dropdown after 2+ chars - 6 product suggestions (thumbnail, name, price) + 3 collection suggestions","Mobile: full-screen overlay, popular searches shown before typing","Keyboard navigation: arrow keys, enter, escape. Highlight matching text in results","Debounce 300ms. Cache results in sessionStorage by query string","API: /search/suggest.json?q={query}&resources[type]=product,collection"],
+   bullets:["Desktop: dropdown after 2+ chars - 6 product suggestions + 3 collection suggestions","Mobile: full-screen overlay, popular searches shown before typing","Keyboard nav: arrow keys, enter, escape. Highlight matching text in results","Debounce 300ms. Cache results in sessionStorage by query string","API: /search/suggest.json?q={query}&resources[type]=product,collection"],
    files:["sections/header.liquid","snippets/predictive-search.liquid","assets/predictive-search.js","assets/predictive-search.css"]}
 ];
 const PL={collection:"Collection page",pdp:"Product page",sitewide:"Site-wide"};
@@ -290,21 +667,20 @@ const SC={todo:"sp-todo",progress:"sp-progress",review:"sp-review",done:"sp-done
 let tasks=[],activeId=null,ejsConfig={},currentTab="board";
 
 function load(){
-  const s=localStorage.getItem("tde-v4");
+  const s=localStorage.getItem("tde-v5");
   if(s){const d=JSON.parse(s);tasks=TASKS.map(t=>{const sv=d.find(x=>x.id===t.id);return{...t,status:sv?sv.status:"todo",hoursLog:sv&&sv.hoursLog?sv.hoursLog:[]};});}
   else tasks=TASKS.map(t=>({...t,status:"todo",hoursLog:[]}));
-  const c=localStorage.getItem("tde-ejs");
-  if(c) ejsConfig=JSON.parse(c);
+  const c=localStorage.getItem("tde-ejs");if(c) ejsConfig=JSON.parse(c);
 }
-function save(){localStorage.setItem("tde-v4",JSON.stringify(tasks.map(t=>({id:t.id,status:t.status,hoursLog:t.hoursLog}))));}
+function save(){localStorage.setItem("tde-v5",JSON.stringify(tasks.map(t=>({id:t.id,status:t.status,hoursLog:t.hoursLog}))));}
 function th(t){return t.hoursLog.reduce((s,e)=>s+e.hours,0);}
-function getRate(){return parseFloat(document.getElementById("rate-input").value)||150;}
+function getRate(){return parseFloat(document.getElementById("rate-input")?document.getElementById("rate-input").value:150)||150;}
 
 function renderAll(){
   const counts={todo:0,progress:0,review:0,done:0};
   tasks.forEach(t=>counts[t.status]++);
   ST.forEach(s=>{
-    const col=document.getElementById("col-"+s);
+    const col=document.getElementById("col-"+s);if(!col)return;
     const items=tasks.filter(t=>t.status===s);
     col.innerHTML=items.length===0?'<div class="empty">no tasks yet</div>':items.map(t=>{
       const h=th(t);
@@ -333,8 +709,7 @@ function renderAll(){
 }
 
 function renderHoursTable(){
-  const rate=getRate();
-  let tH=0,tE=0,tC=0;
+  const rate=getRate();let tH=0,tE=0,tC=0;
   document.getElementById("hours-tbody").innerHTML=tasks.map(t=>{
     const h=th(t);const cost=h*rate;tH+=h;tE+=t.estHours;tC+=cost;
     const entries=t.hoursLog.length>0?`<div style="margin-top:6px">`+t.hoursLog.map(e=>`<div style="font-size:11px;color:var(--text3);padding:2px 0">${e.hours}h${e.note?" - "+e.note:""} <span style="color:var(--border2)">(${e.date})</span></div>`).join('')+`</div>`:"";
@@ -344,8 +719,8 @@ function renderHoursTable(){
       <td><span class="tag tag-${t.page}">${PL[t.page]}</span></td>
       <td><span class="sp ${SC[t.status]}">${SL[t.status]}</span></td>
       <td style="text-align:right;color:var(--text2)">${t.estHours}h</td>
-      <td style="text-align:right;font-weight:500;color:${h>0?"var(--green)":"var(--text3)"}">${h>0?h+"h":"—"}</td>
-      <td style="text-align:right">${h>0?"$"+(cost).toLocaleString():"—"}</td>
+      <td style="text-align:right;font-weight:500;color:${h>0?"var(--green)":"var(--text3)"}">${h>0?h+"h":"&mdash;"}</td>
+      <td style="text-align:right">${h>0?"$"+(cost).toLocaleString():"&mdash;"}</td>
     </tr>`;
   }).join('');
   document.getElementById("ht-est").textContent=tE+"h";
@@ -357,11 +732,16 @@ function renderHoursTable(){
 
 function switchTab(tab){
   currentTab=tab;
-  document.getElementById("view-board").style.display=tab==="board"?"block":"none";
-  document.getElementById("view-hours").style.display=tab==="hours"?"block":"none";
-  document.getElementById("tab-board").className="tab"+(tab==="board"?" active":"");
-  document.getElementById("tab-hours").className="tab"+(tab==="hours"?" active":"");
+  ["board","hours","brief"].forEach(v=>{
+    document.getElementById("view-"+v).style.display=v===tab?"block":"none";
+    document.getElementById("tab-"+v).className="tab"+(v===tab?" active":"");
+  });
   if(tab==="hours") renderHoursTable();
+}
+
+function scrollToBrief(id){
+  const el=document.getElementById("brief-"+id);
+  if(el) setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),100);
 }
 
 function openModal(id){
@@ -377,18 +757,14 @@ function openModal(id){
   document.getElementById("hours-input").value="";
   document.getElementById("hours-note").value="";
   renderHistory(t);
-  ST.forEach(s=>{
-    const btn=document.getElementById("sb-"+s);
-    btn.className="status-btn"+(t.status===s?(s==="done"?" active-done":" active"):"");
-  });
+  ST.forEach(s=>{const b=document.getElementById("sb-"+s);b.className="status-btn"+(t.status===s?(s==="done"?" active-done":" active"):"");});
   document.getElementById("task-overlay").classList.add("open");
 }
 
 function renderHistory(t){
-  const h=th(t);
-  const wrap=document.getElementById("hours-history-wrap");
+  const h=th(t);const wrap=document.getElementById("hours-history-wrap");
   if(t.hoursLog.length===0){wrap.innerHTML='<div style="font-size:12px;color:var(--green-d);margin-top:8px">No hours logged yet</div>';return;}
-  wrap.innerHTML=`<div class="hours-total">Total logged: ${h}h &nbsp;&middot;&nbsp; Est: ${t.estHours}h</div>
+  wrap.innerHTML=`<div class="hours-total">Total: ${h}h &nbsp;&middot;&nbsp; Est: ${t.estHours}h</div>
     <div class="hours-history">${t.hoursLog.map((e,i)=>`
       <div class="h-entry">
         <span>${e.hours}h${e.note?" &mdash; "+e.note:""}</span>
@@ -409,23 +785,20 @@ function logHours(){
   const date=new Date().toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"});
   t.hoursLog.push({hours:h,note,date});
   save();renderHistory(t);renderAll();
-  document.getElementById("hours-input").value="";
-  document.getElementById("hours-note").value="";
+  document.getElementById("hours-input").value="";document.getElementById("hours-note").value="";
   showToast(h+"h logged","success");
 }
 
 function delEntry(tid,idx){
-  const t=tasks.find(x=>x.id===tid);
-  t.hoursLog.splice(idx,1);
+  const t=tasks.find(x=>x.id===tid);t.hoursLog.splice(idx,1);
   save();renderHistory(t);renderAll();showToast("Entry removed");
 }
 
 function closeModal(){document.getElementById("task-overlay").classList.remove("open");activeId=null;}
 
 function setStatus(s){
-  if(activeId===null) return;
-  const t=tasks.find(x=>x.id===activeId);
-  const prev=t.status;t.status=s;
+  if(activeId===null)return;
+  const t=tasks.find(x=>x.id===activeId);const prev=t.status;t.status=s;
   ST.forEach(st=>{const b=document.getElementById("sb-"+st);b.className="status-btn"+(s===st?(st==="done"?" active-done":" active"):"");});
   save();renderAll();
   if(s==="done"&&prev!=="done"){sendNotif(t);showToast("Marked as done!","success");}
@@ -433,7 +806,7 @@ function setStatus(s){
 }
 
 function sendNotif(t){
-  if(!ejsConfig.pubkey||!ejsConfig.service||!ejsConfig.template||!ejsConfig.toEmail) return;
+  if(!ejsConfig.pubkey||!ejsConfig.service||!ejsConfig.template||!ejsConfig.toEmail)return;
   emailjs.init(ejsConfig.pubkey);
   emailjs.send(ejsConfig.service,ejsConfig.template,{
     to_email:ejsConfig.toEmail,task_name:t.title,task_num:t.num,task_phase:t.phase,
@@ -444,10 +817,10 @@ function sendNotif(t){
 }
 
 function openSetup(){
-  if(ejsConfig.toEmail) document.getElementById("to-email").value=ejsConfig.toEmail;
-  if(ejsConfig.pubkey) document.getElementById("ejs-pubkey").value=ejsConfig.pubkey;
-  if(ejsConfig.service) document.getElementById("ejs-service").value=ejsConfig.service;
-  if(ejsConfig.template) document.getElementById("ejs-template").value=ejsConfig.template;
+  if(ejsConfig.toEmail)document.getElementById("to-email").value=ejsConfig.toEmail;
+  if(ejsConfig.pubkey)document.getElementById("ejs-pubkey").value=ejsConfig.pubkey;
+  if(ejsConfig.service)document.getElementById("ejs-service").value=ejsConfig.service;
+  if(ejsConfig.template)document.getElementById("ejs-template").value=ejsConfig.template;
   document.getElementById("setup-overlay").classList.add("open");
 }
 function closeSetup(){document.getElementById("setup-overlay").classList.remove("open");}
@@ -464,26 +837,24 @@ function exportCSV(){
   const rate=getRate();
   let csv="Feature,Title,Page,Status,Est Hours,Logged Hours,Cost (AUD),Notes\n";
   tasks.forEach(t=>{
-    const h=th(t);
-    const notes=t.hoursLog.map(e=>e.hours+"h"+(e.note?" "+e.note:"")).join(" | ");
+    const h=th(t);const notes=t.hoursLog.map(e=>e.hours+"h"+(e.note?" "+e.note:"")).join(" | ");
     csv+=`"${t.num}","${t.title}","${PL[t.page]}","${SL[t.status]}",${t.estHours},${h},${(h*rate).toFixed(2)},"${notes}"\n`;
   });
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-  a.download="tde-hours-"+new Date().toISOString().slice(0,10)+".csv";
-  a.click();showToast("CSV exported");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download="tde-hours-"+new Date().toISOString().slice(0,10)+".csv";a.click();showToast("CSV exported");
 }
 
 function showToast(msg,type=""){
-  const t=document.getElementById("toast");
-  t.textContent=msg;t.className="toast show"+(type?" "+type:"");
+  const t=document.getElementById("toast");t.textContent=msg;t.className="toast show"+(type?" "+type:"");
   clearTimeout(t._t);t._t=setTimeout(()=>{t.className="toast";},2800);
 }
 
 document.getElementById("task-overlay").addEventListener("click",e=>{if(e.target===e.currentTarget)closeModal();});
 document.getElementById("setup-overlay").addEventListener("click",e=>{if(e.target===e.currentTarget)closeSetup();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeSetup();}});
+
 load();renderAll();
+switchTab("board");
 if(ejsConfig.pubkey){document.getElementById("notify-dot").className="dot dot-on";document.getElementById("notify-label").textContent="notifications on";}
 </script>
 </body>
