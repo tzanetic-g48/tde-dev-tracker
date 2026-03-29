@@ -253,6 +253,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
       <div class="brief-content">
 
+        <!-- COMPATIBILITY AUDIT BANNER -->
+        <div class="brief-section" style="background:var(--surface2);border:1px solid var(--border);margin-bottom:1rem">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px">Live site compatibility audit &mdash; March 2026</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:12px">All 7 features verified against thedailyedited-au.myshopify.com via live JavaScript inspection. Three findings require deviations from standard approaches.</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px">
+              <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">F2 &mdash; Colour swatches &mdash; Method change required</div>
+              <div style="font-size:12px;color:var(--text)">TDE stores colours as <strong>separate products</strong>, not variants. Do not use variant swap. Use <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">custom.colour_siblings</code> metafield to link sibling products. Swatches navigate to sibling URL.</div>
+            </div>
+            <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px">
+              <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">F3 + F4 &mdash; Quick View &amp; Quick Add &mdash; UpcArt conflict</div>
+              <div style="font-size:12px;color:var(--text)">UpcArt cart app is installed and active. Add to Bag must trigger <strong>UpcArt drawer</strong>, not Dawn native cart-drawer. Use <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code> &mdash; UpcArt intercepts automatically but test explicitly.</div>
+            </div>
+            <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px">
+              <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">F3 &mdash; Quick View personalisation &mdash; TailorKit conflict</div>
+              <div style="font-size:12px;color:var(--text)">TailorKit personalisation app is loaded globally. Do <strong>not</strong> render TailorKit widget inside Quick View modal. Use a plain text input for initials only. Let TailorKit handle full personalisation on the PDP.</div>
+            </div>
+            <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px">
+              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7 &mdash; Fully compatible &mdash; no blockers</div>
+              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed all confirmed compatible. F7 search is <strong>easier than estimated</strong> &mdash; <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">/search/suggest</code> and Dawn search-form already present. Estimate reduced from 16h to 10&ndash;12h.</div>
+            </div>
+          </div>
+        </div>
+
         <!-- OVERVIEW -->
         <div class="brief-section" style="background:var(--text);color:#fff;border-color:var(--text)">
           <div style="font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">TDE CRO &amp; UX Brief &mdash; March 2026</div>
@@ -340,13 +364,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
           </div>
           <div class="data-callout"><strong>Why:</strong> Users are clicking into products just to see colour options, then immediately going back. Swatches on the collection card let them see variants without navigating away.</div>
-          <ul class="brief-list">
-            <li>Colour swatch dots below product name on each collection card</li>
-            <li>Clicking a swatch swaps card image to that colour variant via AJAX</li>
-            <li>Min <strong>20&times;20px circles</strong>, 6px gap, max 6 visible with <em>+N more</em> overflow</li>
-            <li>Active swatch: ring/border indicator. Hover shows colour name tooltip</li>
-            <li>Update URL with <code>?variant=ID</code> on swatch selection for shareability</li>
-          </ul>
+          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; TDE ARCHITECTURE NOTE: Colours are stored as separate products, not variants. Do not use variant swap. See required approach below.</div>
+          <div class="brief-subsection">
+            <div class="brief-subsection-title">Required approach &mdash; colour_siblings metafield</div>
+            <ul class="brief-list">
+              <li>Create product metafield: <code>custom.colour_siblings</code> (type: list of product references)</li>
+              <li>Populate for each product with its colour sibling products</li>
+              <li>Swatches read from <code>custom.colour_siblings</code>, NOT from <code>product.variants</code></li>
+              <li>Clicking a swatch <strong>navigates to the sibling product URL</strong> &mdash; it is NOT a variant swap</li>
+              <li>Active swatch (current product colour): ring/border indicator</li>
+              <li>Min <strong>20&times;20px circles</strong>, 6px gap, max 6 visible with <em>+N more</em> overflow. Hover shows colour name tooltip</li>
+            </ul>
+          </div>
           <div class="brief-subsection" style="margin-top:1rem">
             <div class="brief-subsection-title">TDE colour palette</div>
             <ul class="brief-list">
@@ -378,6 +407,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
           </div>
           <div class="data-callout"><strong>Why:</strong> Session recordings show users clicking into products for 3&ndash;5 seconds then immediately going back &mdash; just checking price and colour. Quick View surfaces this without leaving the collection page.</div>
+          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; TWO APP CONFLICTS &mdash; READ BEFORE STARTING<br>
+            <span style="font-weight:400;display:block;margin-top:4px">1. <strong>UpcArt:</strong> Add to Bag must trigger UpcArt drawer, not Dawn native cart. Use <code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code> &mdash; test explicitly.<br>
+            2. <strong>TailorKit:</strong> Do NOT render TailorKit widget inside modal. Use plain text input for initials only.</span>
+          </div>
           <div class="brief-subsection">
             <div class="brief-subsection-title">Trigger</div>
             <ul class="brief-list">
@@ -426,6 +459,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <span class="bpill bp-collection">Collection page</span>
             <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 12h</span>
           </div>
+          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; UpcArt conflict &mdash; same as F3. Add to Cart must trigger UpcArt drawer. Use <code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code>. Test explicitly before shipping.</div>
           <ul class="brief-list">
             <li>Show Quick Add <strong>only</strong> for single-variant products with no personalisation required</li>
             <li>For personalised or multi-variant products &mdash; show Quick View instead (Feature 3)</li>
@@ -515,8 +549,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="brief-meta">
             <span class="bpill bp-high">High</span>
             <span class="bpill bp-sitewide">Site-wide</span>
-            <span class="bpill bp-phase">Phase 4 &middot; 2&ndash;3 days &middot; Est 16h</span>
+            <span class="bpill bp-phase">Phase 4 &middot; 2&ndash;3 days &middot; Est 10&ndash;12h</span>
           </div>
+          <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--green-d);font-weight:600">&#10003; Easier than estimated &mdash; <code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">/search/suggest</code> confirmed in routes. Dawn search-form component already present. Extend existing rather than build from scratch. Estimate reduced from 16h to 10&ndash;12h.</div>
           <div class="data-callout"><strong>Why:</strong> 77 quick back clicks on /search. Users searching for &ldquo;pouch&rdquo; browsed 3 pages of results and still didn&rsquo;t convert. Predictive search surfaces the right product before they finish typing.</div>
           <div class="brief-subsection">
             <div class="brief-subsection-title">Desktop</div>
