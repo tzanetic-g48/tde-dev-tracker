@@ -192,7 +192,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="scard"><div class="scard-label">In review</div><div class="scard-val amber" id="s-review">0</div></div>
     <div class="scard"><div class="scard-label">Done</div><div class="scard-val green" id="s-done">0</div></div>
     <div class="scard"><div class="scard-label">Hours logged</div><div class="scard-val" id="s-hours">0h</div><div class="scard-sub" id="s-cost">$0 spent</div></div>
-    <div class="scard"><div class="scard-label">Est. remaining</div><div class="scard-val" id="s-est">140h</div><div class="scard-sub">across all tasks</div></div>
+
   </div>
   <div class="prog-wrap">
     <div class="prog-top"><span>Overall progress</span><strong id="prog-pct">0%</strong></div>
@@ -218,22 +218,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="view-hours" class="hours-view">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:10px">
       <div style="display:flex;align-items:center;gap:10px">
-        <label style="font-size:13px;color:var(--text2)">Hourly rate (AUD $)</label>
-        <input type="number" id="rate-input" value="150" min="0" step="10" style="width:90px;padding:6px 10px;border:1px solid var(--border2);border-radius:var(--r);font-size:13px;background:var(--surface);color:var(--text)" oninput="renderHoursTable()">
+        <input type="hidden" id="rate-input" value="150">
       </div>
       <button class="top-btn primary" onclick="exportCSV()">Export CSV</button>
     </div>
     <table class="htable">
       <thead><tr>
         <th style="width:36px">#</th><th>Feature</th><th>Page</th><th>Status</th>
-        <th style="text-align:right">Est hrs</th><th style="text-align:right">Logged hrs</th><th style="text-align:right">Cost (AUD)</th>
+        <th style="text-align:right">Logged hrs</th>
       </tr></thead>
       <tbody id="hours-tbody"></tbody>
       <tfoot><tr class="htable-footer">
         <td colspan="4">Total</td>
-        <td style="text-align:right" id="ht-est">140h</td>
         <td style="text-align:right" id="ht-logged">0h</td>
-        <td style="text-align:right" id="ht-cost">$0</td>
       </tr></tfoot>
     </table>
   </div>
@@ -738,29 +735,23 @@ function renderAll(){
   const rate=getRate();
   document.getElementById("s-hours").textContent=allH+"h";
   document.getElementById("s-cost").textContent="$"+(allH*rate).toLocaleString()+" spent";
-  const remH=tasks.filter(t=>t.status!=="done").reduce((s,t)=>s+t.estHours,0);
-  document.getElementById("s-est").textContent=remH+"h";
   if(currentTab==="hours") renderHoursTable();
 }
 
 function renderHoursTable(){
-  const rate=getRate();let tH=0,tE=0,tC=0;
+  const rate=getRate();let tH=0;
   document.getElementById("hours-tbody").innerHTML=tasks.map(t=>{
-    const h=th(t);const cost=h*rate;tH+=h;tE+=t.estHours;tC+=cost;
+    const h=th(t);tH+=h;
     const entries=t.hoursLog.length>0?`<div style="margin-top:6px">`+t.hoursLog.map(e=>`<div style="font-size:11px;color:var(--text3);padding:2px 0">${e.hours}h${e.note?" - "+e.note:""} <span style="color:var(--border2)">(${e.date})</span></div>`).join('')+`</div>`:"";
     return`<tr>
       <td style="color:var(--text3);font-size:12px">${t.id}</td>
       <td><strong style="font-size:13px">${t.num}</strong><br><span style="font-size:12px;color:var(--text2)">${t.title}</span>${entries}</td>
       <td><span class="tag tag-${t.page}">${PL[t.page]}</span></td>
       <td><span class="sp ${SC[t.status]}">${SL[t.status]}</span></td>
-      <td style="text-align:right;color:var(--text2)">${t.estHours}h</td>
       <td style="text-align:right;font-weight:500;color:${h>0?"var(--green)":"var(--text3)"}">${h>0?h+"h":"&mdash;"}</td>
-      <td style="text-align:right">${h>0?"$"+(cost).toLocaleString():"&mdash;"}</td>
     </tr>`;
   }).join('');
-  document.getElementById("ht-est").textContent=tE+"h";
   document.getElementById("ht-logged").textContent=tH+"h";
-  document.getElementById("ht-cost").textContent="$"+tC.toLocaleString();
   document.getElementById("s-hours").textContent=tH+"h";
   document.getElementById("s-cost").textContent="$"+(tH*rate).toLocaleString()+" spent";
 }
@@ -799,7 +790,7 @@ function openModal(id){
 function renderHistory(t){
   const h=th(t);const wrap=document.getElementById("hours-history-wrap");
   if(t.hoursLog.length===0){wrap.innerHTML='<div style="font-size:12px;color:var(--green-d);margin-top:8px">No hours logged yet</div>';return;}
-  wrap.innerHTML=`<div class="hours-total">Total: ${h}h &nbsp;&middot;&nbsp; Est: ${t.estHours}h</div>
+  wrap.innerHTML=`<div class="hours-total">Total: ${h}h</div>
     <div class="hours-history">${t.hoursLog.map((e,i)=>`
       <div class="h-entry">
         <span>${e.hours}h${e.note?" &mdash; "+e.note:""}</span>
@@ -870,10 +861,10 @@ function saveNotifications(){
 
 function exportCSV(){
   const rate=getRate();
-  let csv="Feature,Title,Page,Status,Est Hours,Logged Hours,Cost (AUD),Notes\n";
+  let csv="Feature,Title,Page,Status,Logged Hours,Notes\n";
   tasks.forEach(t=>{
     const h=th(t);const notes=t.hoursLog.map(e=>e.hours+"h"+(e.note?" "+e.note:"")).join(" | ");
-    csv+=`"${t.num}","${t.title}","${PL[t.page]}","${SL[t.status]}",${t.estHours},${h},${(h*rate).toFixed(2)},"${notes}"\n`;
+    csv+=`"${t.num}","${t.title}","${PL[t.page]}","${SL[t.status]}",${h},"${notes}"\n`;
   });
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
   a.download="tde-hours-"+new Date().toISOString().slice(0,10)+".csv";a.click();showToast("CSV exported");
