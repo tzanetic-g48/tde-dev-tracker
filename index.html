@@ -502,7 +502,7 @@ function load(){
   else tasks=TASKS.map(t=>({...t,status:"todo",hoursLog:[]}));
   const c=localStorage.getItem("tde-ejs");if(c) ejsConfig=JSON.parse(c);
 }
-function save(){localStorage.setItem("tde-v6",JSON.stringify(tasks.map(t=>({id:t.id,status:t.status,hoursLog:t.hoursLog}))));}\
+function save(){localStorage.setItem("tde-v6",JSON.stringify(tasks.map(t=>({id:t.id,status:t.status,hoursLog:t.hoursLog}))));}
 function th(t){return t.hoursLog.reduce((s,e)=>s+e.hours,0);}
 function getRate(){return parseFloat(document.getElementById("rate-input")?document.getElementById("rate-input").value:150)||150;}
 
