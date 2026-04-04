@@ -45,7 +45,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
 .tab{padding:10px 18px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
 .tab:hover{color:var(--text)}.tab.active{color:var(--text);border-bottom-color:var(--text)}
-/* KANBAN */
 .kanban{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .col{background:var(--surface2);border-radius:var(--rl);padding:12px}
 .col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -66,7 +65,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tag-pdp{background:var(--purple-l);color:var(--purple)}
 .tag-sitewide{background:var(--amber-l);color:var(--amber)}
 .empty{font-size:12px;color:var(--text3);text-align:center;padding:20px 0}
-/* HOURS TABLE */
 .hours-view,.brief-view{display:none}
 .htable{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--rl);overflow:hidden;border:1px solid var(--border)}
 .htable th{background:var(--surface2);padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text2);border-bottom:1px solid var(--border)}
@@ -79,7 +77,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sp-review{background:var(--amber-l);color:var(--amber)}
 .sp-done{background:var(--green-l);color:var(--green-d)}
 .htable-footer td{background:var(--surface2);font-weight:600}
-/* BRIEF */
 .brief-wrap{display:flex;gap:20px;align-items:flex-start}
 .brief-nav{width:200px;flex-shrink:0;position:sticky;top:80px}
 .brief-nav-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:10px}
@@ -89,8 +86,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .brief-content{flex:1;min-width:0}
 .brief-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1rem;scroll-margin-top:80px}
 .brief-section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.brief-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
 .brief-num{width:28px;height:28px;border-radius:50%;background:var(--text);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .brief-section-title{font-size:16px;font-weight:600}
+.brief-title{font-size:16px;font-weight:600}
 .brief-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
 .bpill{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:500}
 .bp-critical{background:var(--red);color:#fff}
@@ -111,7 +110,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .data-callout strong{font-weight:600}
 .ref-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--blue);text-decoration:none;background:var(--blue-l);padding:3px 10px;border-radius:99px}
 .ref-link:hover{opacity:.8}
-/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center;padding:1rem}
 .overlay.open{display:flex}
 .modal{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:1.5rem}
@@ -128,7 +126,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .bullet-list li{font-size:13px;padding:4px 0 4px 16px;position:relative;line-height:1.5;border-bottom:1px solid var(--border)}
 .bullet-list li:last-child{border-bottom:none}
 .bullet-list li::before{content:"·";position:absolute;left:4px;color:var(--text3)}
-/* HOURS IN MODAL */
 .hours-section{background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:14px;margin-bottom:1rem}
 .hours-section-title{font-size:12px;font-weight:600;color:var(--green-d);margin-bottom:10px}
 .hours-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
@@ -151,7 +148,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .status-btn:hover{border-color:var(--border2);color:var(--text)}
 .status-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
 .status-btn.active-done{background:var(--green);color:#fff;border-color:var(--green)}
-/* SETUP */
 .setup-modal{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);width:100%;max-width:460px;padding:1.5rem}
 .setup-modal h2{font-size:16px;font-weight:600;margin-bottom:4px}
 .setup-modal p{font-size:13px;color:var(--text2);margin-bottom:1.25rem}
@@ -185,14 +181,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="main">
-  <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>7 developer features &middot; click any card to view details, update status, and log hours</p></div>
+  <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>8 developer features &middot; click any card to view details, update status, and log hours</p></div>
   <div class="summary">
-    <div class="scard"><div class="scard-label">To do</div><div class="scard-val" id="s-todo">7</div></div>
+    <div class="scard"><div class="scard-label">To do</div><div class="scard-val" id="s-todo">8</div></div>
     <div class="scard"><div class="scard-label">In progress</div><div class="scard-val blue" id="s-progress">0</div></div>
     <div class="scard"><div class="scard-label">In review</div><div class="scard-val amber" id="s-review">0</div></div>
     <div class="scard"><div class="scard-label">Done</div><div class="scard-val green" id="s-done">0</div></div>
     <div class="scard"><div class="scard-label">Hours logged</div><div class="scard-val" id="s-hours">0h</div><div class="scard-sub" id="s-cost">$0 spent</div></div>
-
   </div>
   <div class="prog-wrap">
     <div class="prog-top"><span>Overall progress</span><strong id="prog-pct">0%</strong></div>
@@ -204,22 +199,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="tab" id="tab-brief" onclick="switchTab('brief')">Brief &amp; specs</div>
   </div>
 
-  <!-- BOARD -->
   <div id="view-board">
     <div class="kanban">
-      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">7</span></div><div id="col-todo"></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">8</span></div><div id="col-todo"></div></div>
       <div class="col"><div class="col-header"><span class="col-name">🔧 In progress</span><span class="col-count" id="c-progress">0</span></div><div id="col-progress"><div class="empty">no tasks yet</div></div></div>
       <div class="col"><div class="col-header"><span class="col-name">👀 In review</span><span class="col-count" id="c-review">0</span></div><div id="col-review"><div class="empty">no tasks yet</div></div></div>
       <div class="col"><div class="col-header"><span class="col-name">✅ Done</span><span class="col-count" id="c-done">0</span></div><div id="col-done"><div class="empty">no tasks yet</div></div></div>
     </div>
   </div>
 
-  <!-- HOURS -->
   <div id="view-hours" class="hours-view">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:10px">
-      <div style="display:flex;align-items:center;gap:10px">
-        <input type="hidden" id="rate-input" value="150">
-      </div>
+      <input type="hidden" id="rate-input" value="150">
       <button class="top-btn primary" onclick="exportCSV()">Export CSV</button>
     </div>
     <table class="htable">
@@ -235,364 +226,169 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </table>
   </div>
 
-  <!-- BRIEF -->
   <div id="view-brief" class="brief-view">
     <div class="brief-wrap">
       <div class="brief-nav">
         <div class="brief-nav-title">Features</div>
-        <a href="#brief-1" onclick="scrollTo('brief-1')">F1 &mdash; Filter redesign</a>
-        <a href="#brief-2" onclick="scrollTo('brief-2')">F2 &mdash; Colour swatches</a>
-        <a href="#brief-3" onclick="scrollTo('brief-3')">F3 &mdash; Quick view modal</a>
-        <a href="#brief-4" onclick="scrollTo('brief-4')">F4 &mdash; Quick-add button</a>
-        <a href="#brief-5" onclick="scrollTo('brief-5')">F5 &mdash; Complete the look</a>
-        <a href="#brief-6" onclick="scrollTo('brief-6')">F6 &mdash; Recently viewed</a>
-        <a href="#brief-7" onclick="scrollTo('brief-7')">F7 &mdash; Search suggestions</a>
+        <a href="#brief-1" onclick="scrollToBrief(1)">F1 &mdash; Filter redesign</a>
+        <a href="#brief-2" onclick="scrollToBrief(2)">F2 &mdash; Colour swatches</a>
+        <a href="#brief-3" onclick="scrollToBrief(3)">F3 &mdash; Quick view modal</a>
+        <a href="#brief-4" onclick="scrollToBrief(4)">F4 &mdash; Quick-add button</a>
+        <a href="#brief-5" onclick="scrollToBrief(5)">F5 &mdash; Complete the look</a>
+        <a href="#brief-6" onclick="scrollToBrief(6)">F6 &mdash; Recently viewed</a>
+        <a href="#brief-7" onclick="scrollToBrief(7)">F7 &mdash; Search suggestions</a>
+        <a href="#brief-8" onclick="scrollToBrief(8)">F8 &mdash; USP icon strip</a>
       </div>
       <div class="brief-content">
 
-        <!-- COMPATIBILITY AUDIT BANNER -->
         <div class="brief-section" style="background:var(--surface2);border:1px solid var(--border);margin-bottom:1rem">
           <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px">Live site compatibility audit &mdash; March 2026</div>
-          <div style="font-size:12px;color:var(--text2);margin-bottom:12px">All 7 features verified against thedailyedited-au.myshopify.com via live JavaScript inspection. Three findings require deviations from standard approaches.</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:12px">All features verified against thedailyedited-au.myshopify.com via live JavaScript inspection.</div>
           <div style="display:flex;flex-direction:column;gap:8px">
             <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px">
               <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">F2 &mdash; Colour swatches &mdash; Method change required</div>
-              <div style="font-size:12px;color:var(--text)">TDE stores colours as <strong>separate products</strong>, not variants. Do not use variant swap. Use <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">custom.colour_siblings</code> metafield to link sibling products. Swatches navigate to sibling URL.</div>
+              <div style="font-size:12px;color:var(--text)">TDE stores colours as <strong>separate products</strong>, not variants. Use <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">custom.colour_siblings</code> metafield. Swatches navigate to sibling URL.</div>
             </div>
             <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px">
               <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">F3 + F4 &mdash; Quick View &amp; Quick Add &mdash; UpcArt conflict</div>
-              <div style="font-size:12px;color:var(--text)">UpcArt cart app is installed and active. Add to Bag must trigger <strong>UpcArt drawer</strong>, not Dawn native cart-drawer. Use <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code> &mdash; UpcArt intercepts automatically but test explicitly.</div>
+              <div style="font-size:12px;color:var(--text)">UpcArt cart app active. Add to Bag must trigger <strong>UpcArt drawer</strong>. Use <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code> &mdash; test explicitly.</div>
             </div>
             <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px">
               <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">F3 &mdash; Quick View personalisation &mdash; TailorKit conflict</div>
-              <div style="font-size:12px;color:var(--text)">TailorKit personalisation app is loaded globally. Do <strong>not</strong> render TailorKit widget inside Quick View modal. Use a plain text input for initials only. Let TailorKit handle full personalisation on the PDP.</div>
+              <div style="font-size:12px;color:var(--text)">Do <strong>not</strong> render TailorKit widget inside Quick View. Use plain text input for initials only.</div>
             </div>
             <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px">
-              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7 &mdash; Fully compatible &mdash; no blockers</div>
-              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed all confirmed compatible. F7 search is <strong>easier than estimated</strong> &mdash; <code style="font-size:11px;background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">/search/suggest</code> and Dawn search-form already present. Estimate reduced from 16h to 10&ndash;12h.</div>
+              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7, F8 &mdash; Fully compatible &mdash; no blockers</div>
+              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip all confirmed compatible.</div>
             </div>
           </div>
         </div>
 
-        <!-- OVERVIEW -->
         <div class="brief-section" style="background:var(--text);color:#fff;border-color:var(--text)">
           <div style="font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">TDE CRO &amp; UX Brief &mdash; March 2026</div>
           <div style="font-size:20px;font-weight:600;margin-bottom:8px">Developer brief &amp; technical specifications</div>
-          <div style="font-size:13px;opacity:.7;line-height:1.6">7 features to improve product discovery, conversion, and UX on thedailyedited.com. Based on Microsoft Clarity session data (1,701 sessions) and competitive research (Cuyana, Winnie &amp; Co). Click any feature below to read the full spec.</div>
+          <div style="font-size:13px;opacity:.7;line-height:1.6">8 features to improve product discovery, conversion, and UX on thedailyedited.com.</div>
           <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap">
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Phase 2&ndash;5</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">140h estimated</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~146h estimated</span>
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Shopify / Liquid</span>
           </div>
         </div>
 
-        <!-- FEATURE 1 -->
         <div class="brief-section" id="brief-1">
-          <div class="brief-section-header">
-            <div class="brief-num">1</div>
-            <div class="brief-section-title">Collection filter redesign (Cuyana-style)</div>
-          </div>
-          <div class="brief-meta">
-            <span class="bpill bp-critical">Critical</span>
-            <span class="bpill bp-collection">Collection page</span>
-            <span class="bpill bp-phase">Phase 2 &middot; 5&ndash;7 days &middot; Est 35h</span>
-            <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
-          </div>
-          <div class="data-callout"><strong>Why:</strong> 263 quick back clicks/week on /collections/personalised-bags. 724 mobile vs 472 desktop. Users paginating through 3+ pages, losing scroll position, giving up.</div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">1A &mdash; Horizontal category pills</div>
-            <ul class="brief-list">
-              <li>Scrollable pill row above product grid on all collection pages</li>
-              <li>Pills: <strong>All Bags | Tote Bags | Shoulder Bags | Crossbody | Travel | Work | Clutches</strong></li>
-              <li>Active pill: black bg, white text. Inactive: white bg, black border</li>
-              <li>Min <strong>44px height</strong> &mdash; current size causing dead clicks on mobile</li>
-              <li>One-tap AJAX filtering, no page reload. URL updates with filter params</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">1B &mdash; Desktop sidebar filters (&ge;990px)</div>
-            <ul class="brief-list">
-              <li>Always-visible left column (260px fixed), sticky top:20px</li>
-              <li>Filter sections: Product Type (checkboxes), Colour (swatches), Personalisation (toggle), Price Range (slider)</li>
-              <li>Dynamic count: <em>&ldquo;Showing 12 of 47 products&rdquo;</em></li>
-              <li>Reset all filters link at top</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">1C &mdash; Mobile bottom sheet (&lt;990px)</div>
-            <ul class="brief-list">
-              <li>Full-screen bottom sheet triggered by Filter &amp; Sort button</li>
-              <li><strong>All filter options min 48px height</strong> &mdash; fixes current dead click issue</li>
-              <li>Apply button at bottom applies all at once (not one-by-one)</li>
-              <li>Active filter count badge on trigger: <em>&ldquo;Filter (2)&rdquo;</em></li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">1D &mdash; Active filter pills row</div>
-            <ul class="brief-list">
-              <li>Dismissible pill tags below category pills showing active filters</li>
-              <li>Example: [Tote Bag &times;] [Black &times;] [Clear all]</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">1E &mdash; Load More (replace pagination)</div>
-            <ul class="brief-list">
-              <li>Replace numbered pagination with <em>&ldquo;Load More (24 remaining)&rdquo;</em> button</li>
-              <li>AJAX append &mdash; preserves scroll position when returning from product page</li>
-              <li>URL updates with ?page=2 for back-button support</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Shopify files to modify</div>
-            <div class="files-block">sections/main-collection-product-grid.liquid<br>snippets/facets.liquid<br>assets/component-facets.css<br>assets/facets.js</div>
-          </div>
+          <div class="brief-section-header"><div class="brief-num">1</div><div class="brief-section-title">Collection filter redesign (Cuyana-style)</div></div>
+          <div class="brief-meta"><span class="bpill bp-critical">Critical</span><span class="bpill bp-collection">Collection page</span><span class="bpill bp-phase">Phase 2 &middot; 5&ndash;7 days &middot; Est 35h</span><a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a></div>
+          <div class="data-callout"><strong>Why:</strong> 263 quick back clicks/week on /collections/personalised-bags. Users paginating through 3+ pages, losing scroll position.</div>
+          <div class="brief-subsection"><div class="brief-subsection-title">1A &mdash; Horizontal category pills</div><ul class="brief-list"><li>Scrollable pill row above product grid on all collection pages</li><li>Pills: <strong>All Bags | Tote Bags | Shoulder Bags | Crossbody | Travel | Work | Clutches</strong></li><li>Active pill: black bg, white text. Min <strong>44px height</strong></li><li>One-tap AJAX filtering, URL updates with filter params</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">1B &mdash; Desktop sidebar (&ge;990px)</div><ul class="brief-list"><li>Always-visible left column (260px), sticky top:20px</li><li>Filters: Product Type, Colour, Personalisation, Price Range</li><li>Dynamic count: <em>&ldquo;Showing 12 of 47 products&rdquo;</em></li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">1C &mdash; Mobile bottom sheet (&lt;990px)</div><ul class="brief-list"><li>Full-screen bottom sheet, min 48px tap targets</li><li>Apply button at bottom, active filter count badge on trigger</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">1D &mdash; Active filter pills + 1E &mdash; Load More</div><ul class="brief-list"><li>Dismissible pill tags showing active filters with Clear all</li><li>Replace pagination with Load More (AJAX append, preserve scroll)</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">sections/main-collection-product-grid.liquid<br>snippets/facets.liquid<br>assets/component-facets.css<br>assets/facets.js</div></div>
         </div>
 
-        <!-- FEATURE 2 -->
         <div class="brief-section" id="brief-2">
-          <div class="brief-section-header">
-            <div class="brief-num">2</div>
-            <div class="brief-section-title">Colour swatches on collection grid</div>
-          </div>
-          <div class="brief-meta">
-            <span class="bpill bp-critical">Critical</span>
-            <span class="bpill bp-collection">Collection page</span>
-            <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 20h</span>
-            <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
-          </div>
-          <div class="data-callout"><strong>Why:</strong> Users are clicking into products just to see colour options, then immediately going back. Swatches on the collection card let them see variants without navigating away.</div>
-          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; TDE ARCHITECTURE NOTE: Colours are stored as separate products, not variants. Do not use variant swap. See required approach below.</div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Required approach &mdash; colour_siblings metafield</div>
-            <ul class="brief-list">
-              <li>Create product metafield: <code>custom.colour_siblings</code> (type: list of product references)</li>
-              <li>Populate for each product with its colour sibling products</li>
-              <li>Swatches read from <code>custom.colour_siblings</code>, NOT from <code>product.variants</code></li>
-              <li>Clicking a swatch <strong>navigates to the sibling product URL</strong> &mdash; it is NOT a variant swap</li>
-              <li>Active swatch (current product colour): ring/border indicator</li>
-              <li>Min <strong>20&times;20px circles</strong>, 6px gap, max 6 visible with <em>+N more</em> overflow. Hover shows colour name tooltip</li>
-            </ul>
-          </div>
-          <div class="brief-subsection" style="margin-top:1rem">
-            <div class="brief-subsection-title">TDE colour palette</div>
-            <ul class="brief-list">
-              <li><strong>Black</strong> #1A1A1A &mdash; all product types</li>
-              <li><strong>White / Ivory</strong> #F5F0EB &mdash; cases, wallets</li>
-              <li><strong>Tan / Sand</strong> #C4A882 &mdash; bags, wallets, travel</li>
-              <li><strong>Mauve / Blush</strong> #C4A0A0 &mdash; beauty, bags, cases</li>
-              <li><strong>Chestnut / Brown</strong> #8B5E3C &mdash; bags, passport holders</li>
-              <li><strong>Scarlet / Red</strong> #CC2222 &mdash; cases, accessories</li>
-              <li><strong>Grey</strong> #9E9E9E &mdash; cases, tech</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Shopify files to modify</div>
-            <div class="files-block">snippets/product-card.liquid<br>assets/component-card.css<br>assets/card.js</div>
-          </div>
+          <div class="brief-section-header"><div class="brief-num">2</div><div class="brief-section-title">Colour swatches on collection grid</div></div>
+          <div class="brief-meta"><span class="bpill bp-critical">Critical</span><span class="bpill bp-collection">Collection page</span><span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 20h</span></div>
+          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; Colours are separate products — use custom.colour_siblings metafield, NOT variant swap.</div>
+          <ul class="brief-list"><li>Create metafield: <code>custom.colour_siblings</code> (list of product references)</li><li>Clicking a swatch navigates to sibling product URL</li><li>Min <strong>20&times;20px circles</strong>, 6px gap, max 6 with +N overflow</li></ul>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">snippets/product-card.liquid<br>assets/component-card.css<br>assets/card.js</div></div>
         </div>
 
-        <!-- FEATURE 3 -->
         <div class="brief-section" id="brief-3">
-          <div class="brief-section-header">
-            <div class="brief-num">3</div>
-            <div class="brief-section-title">Quick view modal (Cuyana-style)</div>
-          </div>
-          <div class="brief-meta">
-            <span class="bpill bp-high">High</span>
-            <span class="bpill bp-collection">Collection page</span>
-            <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 25h</span>
-            <a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference: Cuyana bags &#8599;</a>
-          </div>
-          <div class="data-callout"><strong>Why:</strong> Session recordings show users clicking into products for 3&ndash;5 seconds then immediately going back &mdash; just checking price and colour. Quick View surfaces this without leaving the collection page.</div>
-          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; TWO APP CONFLICTS &mdash; READ BEFORE STARTING<br>
-            <span style="font-weight:400;display:block;margin-top:4px">1. <strong>UpcArt:</strong> Add to Bag must trigger UpcArt drawer, not Dawn native cart. Use <code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code> &mdash; test explicitly.<br>
-            2. <strong>TailorKit:</strong> Do NOT render TailorKit widget inside modal. Use plain text input for initials only.</span>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Trigger</div>
-            <ul class="brief-list">
-              <li>Quick View button appears on hover (desktop) / always visible (mobile)</li>
-              <li>Positioned at bottom of product card, full width</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Modal content</div>
-            <ul class="brief-list">
-              <li>Images left column with thumbnail strip. Product info right column</li>
-              <li>Name, price, Afterpay instalment messaging, colour swatches, Add to Bag CTA</li>
-              <li>View full details link below CTA &mdash; navigates to PDP</li>
-              <li>Close: X button, ESC key, click outside</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">TDE personalisation note</div>
-            <ul class="brief-list">
-              <li><strong>For personalised products:</strong> show simplified initials-only entry field inside Quick View &mdash; do NOT show full personalisation widget</li>
-              <li><strong>For standard products:</strong> standard variant selection + Add to Bag</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Mobile behaviour</div>
-            <ul class="brief-list">
-              <li>Opens as bottom sheet (85vh), swipe down to dismiss</li>
-              <li>Focus trapped for accessibility (WCAG 2.1)</li>
-              <li>Render via Shopify Section Rendering API &mdash; cache in sessionStorage</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Shopify files to create/modify</div>
-            <div class="files-block">snippets/quick-view.liquid &mdash; create new<br>snippets/product-card.liquid &mdash; add trigger button<br>assets/quick-view.js &mdash; create new<br>assets/quick-view.css &mdash; create new</div>
-          </div>
+          <div class="brief-section-header"><div class="brief-num">3</div><div class="brief-section-title">Quick view modal (Cuyana-style)</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-collection">Collection page</span><span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 25h</span><a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference &#8599;</a></div>
+          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; UpcArt: use routes.cart_add_url. TailorKit: plain text input only, no widget in modal.</div>
+          <ul class="brief-list"><li>Quick View button on hover (desktop) / always visible (mobile)</li><li>Modal: images left, info right — name, price, Afterpay, swatches, Add to Bag</li><li>Mobile: bottom sheet (85vh). Focus trapped (WCAG 2.1). Section Rendering API</li></ul>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to create/modify</div><div class="files-block">snippets/quick-view.liquid &mdash; create new<br>snippets/product-card.liquid<br>assets/quick-view.js &mdash; create new<br>assets/quick-view.css &mdash; create new</div></div>
         </div>
 
-        <!-- FEATURE 4 -->
         <div class="brief-section" id="brief-4">
-          <div class="brief-section-header">
-            <div class="brief-num">4</div>
-            <div class="brief-section-title">Quick-add &lsquo;Add to cart&rsquo; button</div>
-          </div>
-          <div class="brief-meta">
-            <span class="bpill bp-high">High</span>
-            <span class="bpill bp-collection">Collection page</span>
-            <span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 12h</span>
-          </div>
-          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; UpcArt conflict &mdash; same as F3. Add to Cart must trigger UpcArt drawer. Use <code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">routes.cart_add_url</code>. Test explicitly before shipping.</div>
-          <ul class="brief-list">
-            <li>Show Quick Add <strong>only</strong> for single-variant products with no personalisation required</li>
-            <li>For personalised or multi-variant products &mdash; show Quick View instead (Feature 3)</li>
-            <li>One tap: adds to cart, shows confirmation animation, updates cart count</li>
-            <li>No page navigation required</li>
-          </ul>
-          <div class="brief-subsection" style="margin-top:1rem">
-            <div class="brief-subsection-title">Product eligibility</div>
-            <ul class="brief-list">
-              <li>iPhone cases (personalisation required) &rarr; <strong>Quick View</strong></li>
-              <li>Bags (multiple colours/sizes) &rarr; <strong>Quick View</strong></li>
-              <li>Luggage tags (simple, 1 variant) &rarr; <strong>Quick Add</strong></li>
-              <li>Keyrings (simple, 1 variant) &rarr; <strong>Quick Add</strong></li>
-              <li>Gift cards &rarr; <strong>Quick Add</strong></li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Shopify files to modify</div>
-            <div class="files-block">snippets/product-card.liquid<br>assets/card.js</div>
-          </div>
+          <div class="brief-section-header"><div class="brief-num">4</div><div class="brief-section-title">Quick-add &lsquo;Add to cart&rsquo; button</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-collection">Collection page</span><span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 12h</span></div>
+          <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; UpcArt conflict — use routes.cart_add_url. Test explicitly.</div>
+          <ul class="brief-list"><li>Show Quick Add ONLY for single-variant products with no personalisation</li><li>Multi-variant / personalised products: show Quick View instead</li><li>One tap adds to cart, shows confirmation, updates cart count</li></ul>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">snippets/product-card.liquid<br>assets/card.js</div></div>
         </div>
 
-        <!-- FEATURE 5 -->
         <div class="brief-section" id="brief-5">
-          <div class="brief-section-header">
-            <div class="brief-num">5</div>
-            <div class="brief-section-title">&lsquo;Complete the look&rsquo; section on PDP</div>
-          </div>
-          <div class="brief-meta">
-            <span class="bpill bp-high">High</span>
-            <span class="bpill bp-pdp">Product page</span>
-            <span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 18h</span>
-            <a class="ref-link" href="https://winnieandco.com/collections/crossbody-bags/products/camille-handle-bag-almond-caramel" target="_blank">Reference: Winnie &amp; Co &#8599;</a>
-          </div>
-          <ul class="brief-list">
-            <li>Horizontal product row below main product description &mdash; title: <strong>Complete the look</strong></li>
-            <li>2&ndash;4 complementary products: image, name, price, individual Add button</li>
-            <li>Products curated via metafield: <code>custom.complete_the_look</code> (list of product references, max 4)</li>
-            <li>AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid</li>
-            <li><strong>Initial setup:</strong> manually curate top 20 best-selling products first</li>
-          </ul>
-          <div class="brief-subsection" style="margin-top:1rem">
-            <div class="brief-subsection-title">Content strategy</div>
-            <ul class="brief-list">
-              <li>Bags &rarr; pair with: matching wallet, luggage tag, keyring, passport holder</li>
-              <li>Phone cases &rarr; pair with: AirPods case, card holder, keyring</li>
-              <li>Travel wallets &rarr; pair with: passport holder, luggage tag, travel wetpack</li>
-            </ul>
-          </div>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Shopify files to modify</div>
-            <div class="files-block">sections/main-product.liquid<br>snippets/complete-the-look.liquid &mdash; create new<br>assets/product.js</div>
-          </div>
+          <div class="brief-section-header"><div class="brief-num">5</div><div class="brief-section-title">&lsquo;Complete the look&rsquo; on PDP</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 18h</span></div>
+          <ul class="brief-list"><li>Horizontal row below description — 2&ndash;4 complementary products</li><li>Curated via metafield: <code>custom.complete_the_look</code> (max 4)</li><li>AJAX add per item. Mobile: horizontal scroll. Desktop: grid</li></ul>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">sections/main-product.liquid<br>snippets/complete-the-look.liquid &mdash; create new<br>assets/product.js</div></div>
         </div>
 
-        <!-- FEATURE 6 -->
         <div class="brief-section" id="brief-6">
-          <div class="brief-section-header">
-            <div class="brief-num">6</div>
-            <div class="brief-section-title">&lsquo;Recently viewed&rsquo; replacing &lsquo;You may also like&rsquo;</div>
-          </div>
-          <div class="brief-meta">
-            <span class="bpill bp-high">High</span>
-            <span class="bpill bp-pdp">Product page</span>
-            <span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 14h</span>
-          </div>
-          <div class="data-callout"><strong>Why:</strong> Session recordings show users navigating back to previously viewed products repeatedly. Recently Viewed reduces the need to use the back button, directly cutting quick back click rate.</div>
-          <ul class="brief-list">
-            <li>Store product IDs in <code>localStorage</code> as user browses (max 8 products, clear after 24h)</li>
-            <li>Display horizontal scroll row at bottom of PDP: <strong>Recently viewed</strong></li>
-            <li>Exclude currently viewed product. Fall back to You May Also Like if fewer than 2 items</li>
-            <li>Fetch product data via Shopify AJAX API. Render using Section Rendering API</li>
-            <li>localStorage key: <code>tde_recently_viewed</code> &mdash; JSON array of product IDs</li>
-          </ul>
-          <div class="brief-subsection">
-            <div class="brief-subsection-title">Shopify files to modify</div>
-            <div class="files-block">sections/main-product.liquid<br>snippets/recently-viewed.liquid &mdash; create new<br>assets/recently-viewed.js &mdash; create new</div>
-          </div>
+          <div class="brief-section-header"><div class="brief-num">6</div><div class="brief-section-title">&lsquo;Recently viewed&rsquo; replacing &lsquo;You may also like&rsquo;</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 14h</span></div>
+          <ul class="brief-list"><li>Store product IDs in localStorage (max 8, clear after 24h)</li><li>Display horizontal scroll row: <strong>Recently viewed</strong></li><li>Exclude current product. Fall back to You May Also Like if &lt;2 items</li></ul>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">sections/main-product.liquid<br>snippets/recently-viewed.liquid &mdash; create new<br>assets/recently-viewed.js &mdash; create new</div></div>
         </div>
 
-        <!-- FEATURE 7 -->
         <div class="brief-section" id="brief-7">
-          <div class="brief-section-header">
-            <div class="brief-num">7</div>
-            <div class="brief-section-title">Search bar with product suggestions</div>
+          <div class="brief-section-header"><div class="brief-num">7</div><div class="brief-section-title">Search bar with product suggestions</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-sitewide">Site-wide</span><span class="bpill bp-phase">Phase 4 &middot; 2&ndash;3 days &middot; Est 10&ndash;12h</span></div>
+          <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--green-d);font-weight:600">&#10003; Easier than estimated &mdash; /search/suggest confirmed. Dawn search-form already present. Extend existing.</div>
+          <ul class="brief-list"><li>Desktop: dropdown after 2+ chars — 6 product + 3 collection suggestions</li><li>Mobile: full-screen overlay with popular searches before typing</li><li>Debounce 300ms. Cache in sessionStorage. Keyboard nav.</li></ul>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">sections/header.liquid<br>snippets/predictive-search.liquid &mdash; create new<br>assets/predictive-search.js &mdash; create new<br>assets/predictive-search.css &mdash; create new</div></div>
+        </div>
+
+        <div class="brief-section" id="brief-8">
+          <div class="brief-header">
+            <div class="brief-num">8</div>
+            <div>
+              <div class="brief-title">USP icon strip on PDP (below Afterpay)</div>
+              <div style="font-size:12px;color:var(--text2);margin-top:2px">Product page &middot; Phase 2 &middot; ~6h</div>
+            </div>
           </div>
-          <div class="brief-meta">
-            <span class="bpill bp-high">High</span>
-            <span class="bpill bp-sitewide">Site-wide</span>
-            <span class="bpill bp-phase">Phase 4 &middot; 2&ndash;3 days &middot; Est 10&ndash;12h</span>
-          </div>
-          <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--green-d);font-weight:600">&#10003; Easier than estimated &mdash; <code style="background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px">/search/suggest</code> confirmed in routes. Dawn search-form component already present. Extend existing rather than build from scratch. Estimate reduced from 16h to 10&ndash;12h.</div>
-          <div class="data-callout"><strong>Why:</strong> 77 quick back clicks on /search. Users searching for &ldquo;pouch&rdquo; browsed 3 pages of results and still didn&rsquo;t convert. Predictive search surfaces the right product before they finish typing.</div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 2 &middot; 1&ndash;2 days &middot; Est 6h</span><a class="ref-link" href="https://heiych.com.au" target="_blank">Reference: Heiych PDP &#8599;</a></div>
           <div class="brief-subsection">
-            <div class="brief-subsection-title">Desktop</div>
+            <div class="brief-subsection-title">What to build</div>
             <ul class="brief-list">
-              <li>Dropdown appears below search bar after 2+ characters typed</li>
-              <li>Shows up to 6 product suggestions: thumbnail image, name, price</li>
-              <li>Shows up to 3 collection suggestions: <em>&ldquo;In Bags&rdquo;, &ldquo;In Phone Cases&rdquo;</em></li>
-              <li>Keyboard navigation: arrow keys, enter, escape</li>
-              <li>&ldquo;See all X results for [query]&rdquo; link at bottom</li>
+              <li>A centred row of 3 icons with labels placed directly below the Afterpay instalment line on all PDPs</li>
+              <li><strong>Complimentary Shipping</strong> &mdash; use <code>truck.svg</code></li>
+              <li><strong>Free Monogramming</strong> &mdash; use <code>monogramming.svg</code></li>
+              <li><strong>Signature Dust Bag Included</strong> &mdash; use <code>dustbagicon.svg</code></li>
+              <li>SVG files provided &mdash; upload to Shopify theme Assets and reference via <code>asset_url</code></li>
+              <li>Icon size: 32px. Label: 11px, colour #585b62, not bold, centred below icon</li>
+              <li>3 equal columns, <code>justify-content: center</code> on both mobile and desktop</li>
+              <li>Must be centred on mobile (375px) and desktop (1440px) &mdash; test both</li>
+              <li>Wrap in <code>&lt;div class="tde-usp-strip"&gt;</code>. Static only, no hover effects</li>
             </ul>
           </div>
           <div class="brief-subsection">
-            <div class="brief-subsection-title">Mobile</div>
+            <div class="brief-subsection-title">Placement in code</div>
             <ul class="brief-list">
-              <li>Full-screen search overlay with suggestions as list</li>
-              <li>Popular searches shown before typing: <em>iPhone 17 case, travel wallet, tote bag</em></li>
-              <li>Tap suggestion navigates directly to product</li>
+              <li>File: <code>sections/main-product.liquid</code></li>
+              <li>Find the Afterpay block: <code>{% if product.price >= 3500 %}</code></li>
+              <li>Add USP strip immediately after the closing <code>{% endif %}</code></li>
+              <li>Must display on <strong>all products</strong> &mdash; no conditional wrapping</li>
             </ul>
           </div>
           <div class="brief-subsection">
-            <div class="brief-subsection-title">Technical</div>
+            <div class="brief-subsection-title">CSS guidance</div>
             <ul class="brief-list">
-              <li>API: <code>/search/suggest.json?q={query}&amp;resources[type]=product,collection</code></li>
-              <li>Debounce input: 300ms. Cache results in sessionStorage by query string</li>
-              <li>Highlight matching text in suggestion results</li>
+              <li>Add to <code>assets/tde-cro.css</code> under <code>.tde-usp-strip</code></li>
+              <li><code>display: flex; justify-content: center; gap: 24px; margin-top: 16px; text-align: center;</code></li>
+              <li>Each item: <code>display: flex; flex-direction: column; align-items: center; gap: 6px;</code></li>
+              <li>Mobile: reduce gap to 12px if needed on 375px screens</li>
             </ul>
           </div>
           <div class="brief-subsection">
             <div class="brief-subsection-title">Shopify files to modify</div>
-            <div class="files-block">sections/header.liquid<br>snippets/predictive-search.liquid &mdash; create new<br>assets/predictive-search.js &mdash; create new<br>assets/predictive-search.css &mdash; create new</div>
+            <div class="files-block">sections/main-product.liquid<br>assets/tde-cro.css &mdash; add .tde-usp-strip styles<br>assets/truck.svg &mdash; upload provided file<br>assets/monogramming.svg &mdash; upload provided file<br>assets/dustbagicon.svg &mdash; upload provided file</div>
           </div>
         </div>
 
-        <!-- TESTING -->
         <div class="brief-section" style="background:var(--surface2)">
           <div style="font-size:15px;font-weight:600;margin-bottom:1rem">Testing &amp; success metrics</div>
           <ul class="brief-list">
-            <li>All filter options must have min <strong>44&times;44px tap target</strong> &mdash; verify with Chrome DevTools</li>
+            <li>All filter options must have min <strong>44&times;44px tap target</strong></li>
             <li>All AJAX operations must update URL with filter/variant params</li>
             <li>Scroll position must be preserved when returning from a product page</li>
-            <li>Quick back click rate on /collections/personalised-bags target: <strong>&lt;130/week</strong> (down from 263)</li>
-            <li>Search quick back clicks target: <strong>&lt;40/week</strong> (down from 77)</li>
-            <li>Test all features on iPhone Safari and Android Chrome before QA sign-off</li>
-            <li>Deploy to test theme first &mdash; share preview URL for TDE review before going live</li>
+            <li>Quick back click rate on /collections/personalised-bags target: <strong>&lt;130/week</strong></li>
+            <li>Search quick back clicks target: <strong>&lt;40/week</strong></li>
+            <li>USP strip must be centred on iPhone Safari and Android Chrome</li>
+            <li>Deploy to test theme first &mdash; share preview URL before going live</li>
           </ul>
         </div>
 
@@ -601,7 +397,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- TASK MODAL -->
 <div class="overlay" id="task-overlay">
   <div class="modal">
     <div class="modal-header">
@@ -641,7 +436,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- SETUP MODAL -->
 <div class="overlay" id="setup-overlay">
   <div class="setup-modal">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem">
@@ -669,11 +463,11 @@ const TASKS=[
    files:["sections/main-collection-product-grid.liquid","snippets/facets.liquid","assets/component-facets.css","assets/facets.js"]},
   {id:2,num:"Feature 2",page:"collection",priority:"critical",phase:"Phase 3 - 4-5 days",estHours:20,
    title:"Colour swatches on collection grid",
-   bullets:["Colour swatch dots below product name on each collection card","Clicking a swatch swaps card image to that colour variant via AJAX","Min 20x20px circles, 6px gap, max 6 visible with +N more overflow","Active swatch shows ring indicator. Hover shows colour name tooltip","Update URL with ?variant=ID on selection for shareability"],
+   bullets:["Colour swatch dots below product name on each collection card","Clicking a swatch navigates to sibling product URL via custom.colour_siblings metafield","Min 20x20px circles, 6px gap, max 6 visible with +N more overflow","Active swatch shows ring indicator. Hover shows colour name tooltip"],
    files:["snippets/product-card.liquid","assets/component-card.css","assets/card.js"]},
   {id:3,num:"Feature 3",page:"collection",priority:"high",phase:"Phase 3 - 4-5 days",estHours:25,
    title:"Quick view modal (Cuyana-style)",
-   bullets:["Quick View button on hover (desktop) / tap (mobile) on each product card","Modal: images left, product info right - name, price, Afterpay, swatches, Add to Bag","View full details link below CTA. ESC + click-outside to close","Mobile: opens as bottom sheet (85vh, swipe to dismiss)","Simplified personalisation entry for personalised products - initials field only","Focus trapped for accessibility (WCAG 2.1). Render via Section Rendering API"],
+   bullets:["Quick View button on hover (desktop) / tap (mobile) on each product card","Modal: images left, product info right - name, price, Afterpay, swatches, Add to Bag","View full details link below CTA. ESC + click-outside to close","Mobile: opens as bottom sheet (85vh, swipe to dismiss)","Simplified personalisation entry - plain text initials field only (no TailorKit widget)","Focus trapped for accessibility (WCAG 2.1). Render via Section Rendering API"],
    files:["snippets/quick-view.liquid","snippets/product-card.liquid","assets/quick-view.js","assets/quick-view.css"]},
   {id:4,num:"Feature 4",page:"collection",priority:"high",phase:"Phase 3 - 4-5 days",estHours:12,
    title:"Quick-add 'Add to cart' button",
@@ -681,7 +475,7 @@ const TASKS=[
    files:["snippets/product-card.liquid","assets/card.js"]},
   {id:5,num:"Feature 5",page:"pdp",priority:"high",phase:"Phase 5 - 3-4 days",estHours:18,
    title:"'Complete the look' section on PDP",
-   bullets:["Horizontal product row below main product description - Complete the look","2-4 complementary products: image, name, price, individual Add button","Products curated via metafield: custom.complete_the_look (max 4 references)","AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid","Initial setup: manually curate top 20 best-selling products first"],
+   bullets:["Horizontal product row below main product description - Complete the look","2-4 complementary products: image, name, price, individual Add button","Products curated via metafield: custom.complete_the_look (max 4 references)","AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid"],
    files:["sections/main-product.liquid","snippets/complete-the-look.liquid","assets/product.js"]},
   {id:6,num:"Feature 6",page:"pdp",priority:"high",phase:"Phase 5 - 3-4 days",estHours:14,
    title:"'Recently viewed' replacing 'You may also like'",
@@ -689,8 +483,12 @@ const TASKS=[
    files:["sections/main-product.liquid","snippets/recently-viewed.liquid","assets/recently-viewed.js"]},
   {id:7,num:"Feature 7",page:"sitewide",priority:"high",phase:"Phase 4 - 2-3 days",estHours:16,
    title:"Search bar with product suggestions",
-   bullets:["Desktop: dropdown after 2+ chars - 6 product suggestions + 3 collection suggestions","Mobile: full-screen overlay, popular searches shown before typing","Keyboard nav: arrow keys, enter, escape. Highlight matching text in results","Debounce 300ms. Cache results in sessionStorage by query string","API: /search/suggest.json?q={query}&resources[type]=product,collection"],
-   files:["sections/header.liquid","snippets/predictive-search.liquid","assets/predictive-search.js","assets/predictive-search.css"]}
+   bullets:["Desktop: dropdown after 2+ chars - 6 product suggestions + 3 collection suggestions","Mobile: full-screen overlay, popular searches shown before typing","Keyboard nav: arrow keys, enter, escape. Highlight matching text in results","Debounce 300ms. Cache results in sessionStorage by query string"],
+   files:["sections/header.liquid","snippets/predictive-search.liquid","assets/predictive-search.js","assets/predictive-search.css"]},
+  {id:8,num:"Feature 8",page:"pdp",priority:"high",phase:"Phase 2 - 1-2 days",estHours:6,
+   title:"USP icon strip on PDP (below Afterpay)",
+   bullets:["3 USP icons with labels directly below the Afterpay line on all PDPs","Complimentary Shipping (truck.svg), Free Monogramming (monogramming.svg), Signature Dust Bag Included (dustbagicon.svg)","SVG files provided — upload to Assets folder, reference via asset_url","3 equal columns, justify-content: center on both mobile (375px) and desktop (1440px)","Icon size: 32px. Label: 11px, colour #585b62, not bold, centred below icon","Reference: heiych.com.au PDP for layout style","Wrap in <div class='tde-usp-strip'>. Static only, no hover effects","Place after closing {% endif %} of the Afterpay block in main-product.liquid"],
+   files:["sections/main-product.liquid","assets/tde-cro.css","assets/truck.svg","assets/monogramming.svg","assets/dustbagicon.svg"]}
 ];
 const PL={collection:"Collection page",pdp:"Product page",sitewide:"Site-wide"};
 const ST=["todo","progress","review","done"];
@@ -699,12 +497,12 @@ const SC={todo:"sp-todo",progress:"sp-progress",review:"sp-review",done:"sp-done
 let tasks=[],activeId=null,ejsConfig={},currentTab="board";
 
 function load(){
-  const s=localStorage.getItem("tde-v5");
+  const s=localStorage.getItem("tde-v6");
   if(s){const d=JSON.parse(s);tasks=TASKS.map(t=>{const sv=d.find(x=>x.id===t.id);return{...t,status:sv?sv.status:"todo",hoursLog:sv&&sv.hoursLog?sv.hoursLog:[]};});}
   else tasks=TASKS.map(t=>({...t,status:"todo",hoursLog:[]}));
   const c=localStorage.getItem("tde-ejs");if(c) ejsConfig=JSON.parse(c);
 }
-function save(){localStorage.setItem("tde-v5",JSON.stringify(tasks.map(t=>({id:t.id,status:t.status,hoursLog:t.hoursLog}))));}
+function save(){localStorage.setItem("tde-v6",JSON.stringify(tasks.map(t=>({id:t.id,status:t.status,hoursLog:t.hoursLog}))));}\
 function th(t){return t.hoursLog.reduce((s,e)=>s+e.hours,0);}
 function getRate(){return parseFloat(document.getElementById("rate-input")?document.getElementById("rate-input").value:150)||150;}
 
@@ -732,14 +530,13 @@ function renderAll(){
   document.getElementById("prog-fill").style.width=pct+"%";
   document.getElementById("prog-pct").textContent=pct+"%";
   const allH=tasks.reduce((s,t)=>s+th(t),0);
-  const rate=getRate();
   document.getElementById("s-hours").textContent=allH+"h";
-  document.getElementById("s-cost").textContent="$"+(allH*rate).toLocaleString()+" spent";
+  document.getElementById("s-cost").textContent="$"+(allH*150).toLocaleString()+" spent";
   if(currentTab==="hours") renderHoursTable();
 }
 
 function renderHoursTable(){
-  const rate=getRate();let tH=0;
+  let tH=0;
   document.getElementById("hours-tbody").innerHTML=tasks.map(t=>{
     const h=th(t);tH+=h;
     const entries=t.hoursLog.length>0?`<div style="margin-top:6px">`+t.hoursLog.map(e=>`<div style="font-size:11px;color:var(--text3);padding:2px 0">${e.hours}h${e.note?" - "+e.note:""} <span style="color:var(--border2)">(${e.date})</span></div>`).join('')+`</div>`:"";
@@ -753,7 +550,6 @@ function renderHoursTable(){
   }).join('');
   document.getElementById("ht-logged").textContent=tH+"h";
   document.getElementById("s-hours").textContent=tH+"h";
-  document.getElementById("s-cost").textContent="$"+(tH*rate).toLocaleString()+" spent";
 }
 
 function switchTab(tab){
@@ -860,7 +656,6 @@ function saveNotifications(){
 }
 
 function exportCSV(){
-  const rate=getRate();
   let csv="Feature,Title,Page,Status,Logged Hours,Notes\n";
   tasks.forEach(t=>{
     const h=th(t);const notes=t.hoursLog.map(e=>e.hours+"h"+(e.note?" "+e.note:"")).join(" | ");
