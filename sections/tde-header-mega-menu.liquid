@@ -1,0 +1,678 @@
+{% comment %}
+  TDE Mega Menu Header Section
+  Version: 1.0.0
+  Compatible with: Dawn, Debut, Brooklyn, and most Shopify themes
+  Dependencies: None (vanilla JS + CSS only)
+{% endcomment %}
+
+{%- liquid
+  assign section_id = section.id
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.nav_text_color
+  assign hover_color = section.settings.nav_hover_color
+  assign dropdown_bg = section.settings.dropdown_bg_color
+  assign font_family = section.settings.font_family
+  assign show_announcement = section.settings.show_announcement
+  assign announcement_text = section.settings.announcement_text
+  assign announcement_bg = section.settings.announcement_bg_color
+  assign announcement_color = section.settings.announcement_text_color
+  assign logo = section.settings.logo
+  assign logo_text = section.settings.logo_text
+  assign logo_width = section.settings.logo_width
+-%}
+
+<style>
+  #shopify-section-{{ section_id }} {
+    --tde-bg: {{ bg_color }};
+    --tde-text: {{ text_color }};
+    --tde-hover: {{ hover_color }};
+    --tde-dropdown-bg: {{ dropdown_bg }};
+    --tde-font: {{ font_family }}, sans-serif;
+    --tde-transition: 0.22s ease;
+    --tde-header-height: 56px;
+    font-family: var(--tde-font);
+  }
+  .tde-announcement {
+    background: {{ announcement_bg }};
+    color: {{ announcement_color }};
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+  .tde-announcement a { color: inherit; text-decoration: underline; }
+  .tde-header {
+    background: var(--tde-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .tde-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--tde-header-height);
+    padding: 0 32px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .tde-logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--tde-text);
+  }
+  .tde-logo img { width: {{ logo_width }}px; height: auto; display: block; }
+  .tde-logo__text {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tde-text);
+    text-decoration: none;
+  }
+  .tde-nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: var(--tde-header-height);
+  }
+  .tde-nav__item { position: static; height: 100%; display: flex; align-items: center; }
+  .tde-nav__link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 16px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--tde-text);
+    position: relative;
+    transition: color var(--tde-transition);
+    white-space: nowrap;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: var(--tde-font);
+  }
+  .tde-nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background: var(--tde-hover);
+    transform: scaleX(0);
+    transition: transform var(--tde-transition);
+  }
+  .tde-nav__item:hover .tde-nav__link,
+  .tde-nav__item.is-active .tde-nav__link { color: var(--tde-hover); }
+  .tde-nav__item:hover .tde-nav__link::after,
+  .tde-nav__item.is-active .tde-nav__link::after { transform: scaleX(1); }
+  .tde-header__icons { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+  .tde-header__icon-btn {
+    background: none; border: none; cursor: pointer; padding: 4px;
+    display: flex; align-items: center; color: var(--tde-text);
+    transition: opacity var(--tde-transition); position: relative; text-decoration: none;
+  }
+  .tde-header__icon-btn:hover { opacity: 0.6; }
+  .tde-header__icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .tde-cart-count {
+    position: absolute; top: -4px; right: -6px;
+    background: var(--tde-text); color: var(--tde-bg);
+    font-size: 9px; width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-weight: 500; line-height: 1;
+  }
+  .tde-cart-count:empty, .tde-cart-count[data-count="0"] { display: none; }
+  .tde-hamburger {
+    display: none; background: none; border: none; cursor: pointer; padding: 4px;
+    color: var(--tde-text); flex-direction: column; gap: 5px;
+    align-items: center; justify-content: center; width: 28px; height: 28px;
+  }
+  .tde-hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; transition: all 0.25s ease; transform-origin: center; }
+  .tde-dropdown {
+    position: fixed; top: var(--tde-header-height); left: 0; right: 0;
+    background: var(--tde-dropdown-bg);
+    border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity var(--tde-transition), transform var(--tde-transition), visibility var(--tde-transition);
+    z-index: 999;
+  }
+  .tde-nav__item:hover .tde-dropdown,
+  .tde-dropdown:hover,
+  .tde-dropdown.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+  .tde-dropdown__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 0 40px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 36px 80px 40px 240px;
+    align-items: start;
+  }
+  .tde-dropdown__col-header { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 16px; font-family: var(--tde-font); }
+  .tde-dropdown__col-subheader { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin: 18px 0 8px; font-family: var(--tde-font); }
+  .tde-dropdown__col-subheader:first-child { margin-top: 0; }
+  .tde-dropdown__links { list-style: none; margin: 0; padding: 0; }
+  .tde-dropdown__links li { margin-bottom: 8px; }
+  .tde-dropdown__links a { font-size: 13px; color: var(--tde-text); text-decoration: none; letter-spacing: 0.02em; transition: color var(--tde-transition); font-family: var(--tde-font); line-height: 1.4; display: inline-block; }
+  .tde-dropdown__links a:hover { color: var(--tde-hover); }
+  .tde-dropdown__view-all { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tde-text); text-decoration: none; font-family: var(--tde-font); display: block; margin-bottom: 20px; transition: color var(--tde-transition); }
+  .tde-dropdown__view-all:hover { color: var(--tde-hover); }
+  .tde-dropdown__hero { width: 220px; flex-shrink: 0; position: relative; overflow: hidden; border-radius: 2px; }
+  .tde-dropdown__hero img, .tde-dropdown__hero video { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border-radius: 2px; }
+  .tde-dropdown__hero-caption { position: absolute; bottom: 10px; left: 12px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; font-family: var(--tde-font); }
+  .tde-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 998; opacity: 0; visibility: hidden; transition: opacity var(--tde-transition), visibility var(--tde-transition); }
+  .tde-overlay.is-active { opacity: 1; visibility: visible; }
+  .tde-mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 90vw); background: #fff; z-index: 2000; overflow-y: auto; transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); overscroll-behavior: contain; }
+  .tde-mobile-menu.is-open { transform: translateX(0); box-shadow: 8px 0 32px rgba(0,0,0,0.12); }
+  .tde-mobile-menu__overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+  .tde-mobile-menu__overlay.is-open { opacity: 1; visibility: visible; }
+  .tde-mobile-menu__topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 52px; border-bottom: 1px solid rgba(0,0,0,0.1); flex-shrink: 0; position: sticky; top: 0; background: #fff; z-index: 10; }
+  .tde-mobile-menu__topbar-icons { display: flex; align-items: center; gap: 14px; }
+  .tde-mobile-menu__logo { font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; color: #000; text-decoration: none; }
+  .tde-mobile-menu__logo img { height: 22px; width: auto; }
+  .tde-mobile-icon-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; color: #000; text-decoration: none; }
+  .tde-mobile-icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .tde-mobile-nav { position: relative; overflow: hidden; }
+  .tde-mobile-nav__level { width: 100%; transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease; }
+  .tde-mobile-nav__level--sub { position: absolute; top: 0; left: 0; transform: translateX(100%); opacity: 0; pointer-events: none; background: #fff; min-height: 100%; }
+  .tde-mobile-nav__level--sub.is-active { position: relative; transform: translateX(0); opacity: 1; pointer-events: auto; }
+  .tde-mobile-nav__level--root.is-hidden { transform: translateX(-30%); opacity: 0; pointer-events: none; position: absolute; }
+  .tde-mobile-back { display: flex; align-items: center; gap: 8px; padding: 14px 20px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: #000; border-bottom: 1px solid rgba(0,0,0,0.08); background: none; border-left: none; border-right: none; border-top: none; cursor: pointer; width: 100%; text-align: left; font-family: var(--tde-font); }
+  .tde-mobile-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  .tde-mobile-nav__item { border-bottom: 1px solid rgba(0,0,0,0.07); }
+  .tde-mobile-nav__link { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #000; text-decoration: none; font-family: var(--tde-font); background: none; border: none; width: 100%; cursor: pointer; font-weight: 400; }
+  .tde-mobile-nav__link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.45; }
+  .tde-mobile-sub__section { padding: 18px 20px 6px; }
+  .tde-mobile-sub__heading { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.38); margin-bottom: 10px; font-family: var(--tde-font); }
+  .tde-mobile-sub__links { list-style: none; margin: 0; padding: 0; }
+  .tde-mobile-sub__links li { border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .tde-mobile-sub__links a { display: block; padding: 11px 0; font-size: 13px; letter-spacing: 0.07em; text-transform: uppercase; color: #000; text-decoration: none; font-family: var(--tde-font); transition: color 0.15s; }
+  .tde-mobile-sub__links a:hover { color: {{ hover_color }}; }
+  .tde-mobile-sub__view-all { display: block; padding: 14px 20px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #000; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.1); font-family: var(--tde-font); }
+  .tde-mobile-promo { margin: 16px 20px 24px; position: relative; border-radius: 2px; overflow: hidden; }
+  .tde-mobile-promo img, .tde-mobile-promo video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; }
+  .tde-mobile-promo__caption { position: absolute; bottom: 12px; left: 14px; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: #fff; font-family: var(--tde-font); }
+  @media (max-width: 1024px) {
+    .tde-nav { display: none; }
+    .tde-hamburger { display: flex; }
+    .tde-header__inner { padding: 0 16px; }
+    .tde-dropdown { display: none !important; }
+  }
+  @media (min-width: 1025px) {
+    .tde-mobile-menu, .tde-mobile-menu__overlay { display: none !important; }
+    .tde-hamburger { display: none !important; }
+  }
+</style>
+
+{%- if show_announcement and announcement_text != blank -%}
+<div class="tde-announcement">{{ announcement_text }}</div>
+{%- endif -%}
+
+<div class="tde-overlay" id="tde-overlay" aria-hidden="true"></div>
+
+<header class="tde-header" role="banner" id="tde-header">
+  <div class="tde-header__inner">
+    <button class="tde-hamburger" id="tde-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="tde-mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="{{ routes.root_url }}" class="tde-logo" aria-label="{{ shop.name }} home">
+      {%- if logo != blank -%}
+        {{ logo | image_url: width: 400 | image_tag: loading: 'eager', alt: shop.name, class: 'tde-logo__img' }}
+      {%- else -%}
+        <span class="tde-logo__text">{{ logo_text | default: shop.name }}</span>
+      {%- endif -%}
+    </a>
+    <nav class="tde-nav-wrapper" aria-label="Main navigation" style="display:flex;align-items:center;height:100%;">
+      <ul class="tde-nav" id="tde-nav" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'nav_item' -%}
+            {%- liquid
+              assign has_dropdown = false
+              for i in (1..3)
+                assign col_links_key = 'col' | append: i | append: '_links'
+                assign col_links = block.settings[col_links_key]
+                if col_links != blank
+                  assign has_dropdown = true
+                endif
+              endfor
+            -%}
+            <li class="tde-nav__item" role="none" {% if has_dropdown %}data-has-dropdown="true"{% endif %}>
+              <a href="{{ block.settings.link | default: '#' }}" class="tde-nav__link" role="menuitem"
+                {% if has_dropdown %}aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-{{ block.id }}"{% endif %}
+              >{{ block.settings.label }}</a>
+              {%- if has_dropdown -%}
+              <div class="tde-dropdown" id="dropdown-{{ block.id }}" role="region" aria-label="{{ block.settings.label }} submenu">
+                <div class="tde-dropdown__inner">
+                  {%- if block.settings.col1_links != blank -%}
+                  <div class="tde-dropdown__col">
+                    {%- if block.settings.view_all_link != blank -%}<a href="{{ block.settings.view_all_link }}" class="tde-dropdown__view-all">View all</a>{%- endif -%}
+                    {%- if block.settings.col1_heading != blank -%}<div class="tde-dropdown__col-subheader">{{ block.settings.col1_heading }}</div>{%- endif -%}
+                    <ul class="tde-dropdown__links" role="list">
+                      {%- assign col1_lines = block.settings.col1_links | newline_to_br | split: '<br />' -%}
+                      {%- for line in col1_lines -%}
+                        {%- assign parts = line | strip | split: '|' -%}
+                        {%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                  {%- endif -%}
+                  {%- if block.settings.col2_links != blank -%}
+                  <div class="tde-dropdown__col">
+                    {%- if block.settings.col2_heading != blank -%}<div class="tde-dropdown__col-header">{{ block.settings.col2_heading }}</div>{%- endif -%}
+                    <ul class="tde-dropdown__links" role="list">
+                      {%- assign col2_lines = block.settings.col2_links | newline_to_br | split: '<br />' -%}
+                      {%- for line in col2_lines -%}
+                        {%- assign parts = line | strip | split: '|' -%}
+                        {%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                  {%- endif -%}
+                  {%- if block.settings.col3_links != blank -%}
+                  <div class="tde-dropdown__col">
+                    {%- if block.settings.col3_heading != blank -%}<div class="tde-dropdown__col-header">{{ block.settings.col3_heading }}</div>{%- endif -%}
+                    <ul class="tde-dropdown__links" role="list">
+                      {%- assign col3_lines = block.settings.col3_links | newline_to_br | split: '<br />' -%}
+                      {%- for line in col3_lines -%}
+                        {%- assign parts = line | strip | split: '|' -%}
+                        {%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                  {%- endif -%}
+                  {%- liquid
+                    assign hero_image = block.settings.hero_image
+                    assign hero_video = block.settings.hero_video
+                    assign hero_caption = block.settings.hero_caption
+                    assign hero_link = block.settings.hero_link
+                  -%}
+                  {%- if hero_image != blank or hero_video != blank -%}
+                  <div class="tde-dropdown__hero">
+                    {%- if hero_link != blank -%}<a href="{{ hero_link }}" tabindex="-1" aria-hidden="true">{%- endif -%}
+                    {%- if hero_video != blank -%}<video src="{{ hero_video }}" autoplay muted loop playsinline></video>
+                    {%- elsif hero_image != blank -%}{{ hero_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: hero_caption }}
+                    {%- endif -%}
+                    {%- if hero_caption != blank -%}<span class="tde-dropdown__hero-caption">{{ hero_caption }}</span>{%- endif -%}
+                    {%- if hero_link != blank -%}</a>{%- endif -%}
+                  </div>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="tde-header__icons">
+      {%- if section.settings.show_search -%}
+      <button class="tde-header__icon-btn" id="tde-search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      {%- endif -%}
+      {%- if shop.customer_accounts_enabled -%}
+      <a href="{{ routes.account_url }}" class="tde-header__icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="tde-header__icon-btn" aria-label="Cart ({{ cart.item_count }} items)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="tde-cart-count" id="tde-cart-count" data-count="{{ cart.item_count }}">{%- if cart.item_count > 0 -%}{{ cart.item_count }}{%- endif -%}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="tde-mobile-menu__overlay" id="tde-mobile-overlay" aria-hidden="true"></div>
+<div class="tde-mobile-menu" id="tde-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="tde-mobile-menu__topbar">
+    <div class="tde-mobile-menu__topbar-icons">
+      <button class="tde-mobile-icon-btn" id="tde-mobile-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      {%- if section.settings.show_wishlist -%}
+      <a href="{{ section.settings.wishlist_url | default: '/pages/wishlist' }}" class="tde-mobile-icon-btn" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </a>
+      {%- endif -%}
+    </div>
+    <a href="{{ routes.root_url }}" class="tde-mobile-menu__logo">
+      {%- if logo != blank -%}{{ logo | image_url: width: 300 | image_tag: loading: 'eager', alt: shop.name }}
+      {%- else -%}{{ logo_text | default: shop.name }}{%- endif -%}
+    </a>
+    <div class="tde-mobile-menu__topbar-icons">
+      {%- if section.settings.show_search -%}
+      <button class="tde-mobile-icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="tde-mobile-icon-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </a>
+    </div>
+  </div>
+  <nav class="tde-mobile-nav" id="tde-mobile-nav" aria-label="Mobile navigation">
+    <div class="tde-mobile-nav__level tde-mobile-nav__level--root" id="tde-mobile-root">
+      <ul role="list" style="list-style:none;margin:0;padding:0;">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'nav_item' -%}
+            {%- liquid
+              assign has_sub = false
+              for i in (1..3)
+                assign col_links_key = 'col' | append: i | append: '_links'
+                assign col_links = block.settings[col_links_key]
+                if col_links != blank
+                  assign has_sub = true
+                endif
+              endfor
+            -%}
+            <li class="tde-mobile-nav__item">
+              {%- if has_sub -%}
+              <button class="tde-mobile-nav__link" data-opens="mobile-sub-{{ block.id }}" aria-expanded="false">
+                {{ block.settings.label }}
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              {%- else -%}
+              <a href="{{ block.settings.link | default: '#' }}" class="tde-mobile-nav__link">{{ block.settings.label }}</a>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'nav_item' -%}
+        {%- liquid
+          assign has_sub = false
+          for i in (1..3)
+            assign col_links_key = 'col' | append: i | append: '_links'
+            assign col_links = block.settings[col_links_key]
+            if col_links != blank
+              assign has_sub = true
+            endif
+          endfor
+        -%}
+        {%- if has_sub -%}
+        <div class="tde-mobile-nav__level tde-mobile-nav__level--sub" id="mobile-sub-{{ block.id }}" aria-hidden="true">
+          <button class="tde-mobile-back" data-back="true" aria-label="Back to main menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            {{ block.settings.label }}
+          </button>
+          {%- if block.settings.view_all_link != blank -%}<a href="{{ block.settings.view_all_link }}" class="tde-mobile-sub__view-all">View all</a>{%- endif -%}
+          {%- if block.settings.col1_links != blank -%}
+          <div class="tde-mobile-sub__section">
+            {%- if block.settings.col1_heading != blank -%}<div class="tde-mobile-sub__heading">{{ block.settings.col1_heading }}</div>{%- endif -%}
+            <ul class="tde-mobile-sub__links" role="list">
+              {%- assign col1_lines = block.settings.col1_links | newline_to_br | split: '<br />' -%}
+              {%- for line in col1_lines -%}{%- assign parts = line | strip | split: '|' -%}{%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}{%- endfor -%}
+            </ul>
+          </div>
+          {%- endif -%}
+          {%- if block.settings.col2_links != blank -%}
+          <div class="tde-mobile-sub__section">
+            {%- if block.settings.col2_heading != blank -%}<div class="tde-mobile-sub__heading">{{ block.settings.col2_heading }}</div>{%- endif -%}
+            <ul class="tde-mobile-sub__links" role="list">
+              {%- assign col2_lines = block.settings.col2_links | newline_to_br | split: '<br />' -%}
+              {%- for line in col2_lines -%}{%- assign parts = line | strip | split: '|' -%}{%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}{%- endfor -%}
+            </ul>
+          </div>
+          {%- endif -%}
+          {%- if block.settings.col3_links != blank -%}
+          <div class="tde-mobile-sub__section">
+            {%- if block.settings.col3_heading != blank -%}<div class="tde-mobile-sub__heading">{{ block.settings.col3_heading }}</div>{%- endif -%}
+            <ul class="tde-mobile-sub__links" role="list">
+              {%- assign col3_lines = block.settings.col3_links | newline_to_br | split: '<br />' -%}
+              {%- for line in col3_lines -%}{%- assign parts = line | strip | split: '|' -%}{%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}{%- endfor -%}
+            </ul>
+          </div>
+          {%- endif -%}
+          {%- liquid
+            assign hero_image = block.settings.hero_image
+            assign hero_video = block.settings.hero_video
+            assign hero_caption = block.settings.hero_caption
+            assign hero_link = block.settings.hero_link
+          -%}
+          {%- if hero_image != blank or hero_video != blank -%}
+          <div class="tde-mobile-promo">
+            {%- if hero_link != blank -%}<a href="{{ hero_link }}">{%- endif -%}
+            {%- if hero_video != blank -%}<video src="{{ hero_video }}" autoplay muted loop playsinline></video>
+            {%- elsif hero_image != blank -%}{{ hero_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: hero_caption }}
+            {%- endif -%}
+            {%- if hero_caption != blank -%}<span class="tde-mobile-promo__caption">{{ hero_caption }}</span>{%- endif -%}
+            {%- if hero_link != blank -%}</a>{%- endif -%}
+          </div>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+</div>
+
+{%- if section.settings.show_search -%}
+<div id="tde-search-overlay" role="search" aria-hidden="true"
+  style="position:fixed;inset:0;z-index:3000;background:rgba(255,255,255,0.97);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:100px;opacity:0;visibility:hidden;transition:opacity 0.2s ease, visibility 0.2s ease;">
+  <button id="tde-search-close" aria-label="Close search" style="position:absolute;top:20px;right:24px;background:none;border:none;cursor:pointer;padding:8px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <form action="{{ routes.search_url }}" method="get" style="width:100%;max-width:560px;padding:0 24px;">
+    <input type="hidden" name="type" value="product">
+    <input id="tde-search-input" type="search" name="q" placeholder="Search..." autocomplete="off"
+      style="width:100%;border:none;border-bottom:1px solid rgba(0,0,0,0.2);font-size:24px;padding:12px 0;outline:none;background:transparent;font-family:{{ font_family }}, sans-serif;letter-spacing:0.04em;">
+  </form>
+</div>
+{%- endif -%}
+
+<script>
+(function() {
+  'use strict';
+  const overlay   = document.getElementById('tde-overlay');
+  const hamburger = document.getElementById('tde-hamburger');
+  const mobileMenu    = document.getElementById('tde-mobile-menu');
+  const mobileOverlay = document.getElementById('tde-mobile-overlay');
+  const mobileClose   = document.getElementById('tde-mobile-close');
+  const mobileNav     = document.getElementById('tde-mobile-nav');
+  let closeTimer = null;
+  const navItems = document.querySelectorAll('#tde-header .tde-nav__item[data-has-dropdown]');
+  function openDropdown(item) {
+    clearTimeout(closeTimer);
+    navItems.forEach(i => { if (i !== item) closeDropdown(i, true); });
+    item.classList.add('is-active');
+    const link = item.querySelector('.tde-nav__link');
+    if (link) link.setAttribute('aria-expanded', 'true');
+    if (overlay) overlay.classList.add('is-active');
+  }
+  function closeDropdown(item, immediate) {
+    clearTimeout(closeTimer);
+    const doClose = () => { item.classList.remove('is-active'); const link = item.querySelector('.tde-nav__link'); if (link) link.setAttribute('aria-expanded', 'false'); };
+    if (immediate) { doClose(); } else { closeTimer = setTimeout(doClose, 80); }
+  }
+  function closeAllDropdowns() {
+    clearTimeout(closeTimer);
+    navItems.forEach(i => closeDropdown(i, true));
+    if (overlay) overlay.classList.remove('is-active');
+  }
+  navItems.forEach(item => {
+    item.addEventListener('mouseenter', () => openDropdown(item));
+    item.addEventListener('mouseleave', () => {
+      closeTimer = setTimeout(() => {
+        closeDropdown(item, true);
+        const anyActive = Array.from(navItems).some(i => i.classList.contains('is-active'));
+        if (!anyActive && overlay) overlay.classList.remove('is-active');
+      }, 120);
+    });
+    const link = item.querySelector('.tde-nav__link');
+    if (link) {
+      link.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.classList.contains('is-active') ? closeDropdown(item, true) : openDropdown(item); }
+        if (e.key === 'Escape') { closeDropdown(item, true); link.focus(); }
+      });
+    }
+    const dropdown = item.querySelector('.tde-dropdown');
+    if (dropdown) {
+      dropdown.addEventListener('mouseenter', () => { clearTimeout(closeTimer); });
+      dropdown.addEventListener('mouseleave', () => {
+        closeTimer = setTimeout(() => {
+          closeDropdown(item, true);
+          const anyActive = Array.from(navItems).some(i => i.classList.contains('is-active'));
+          if (!anyActive && overlay) overlay.classList.remove('is-active');
+        }, 120);
+      });
+    }
+  });
+  if (overlay) overlay.addEventListener('click', closeAllDropdowns);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllDropdowns(); });
+  function openMobileMenu() {
+    mobileMenu.classList.add('is-open'); mobileOverlay.classList.add('is-open');
+    mobileMenu.removeAttribute('aria-hidden'); mobileOverlay.removeAttribute('aria-hidden');
+    hamburger.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden';
+    const firstFocus = mobileMenu.querySelector('button, a, input');
+    if (firstFocus) setTimeout(() => firstFocus.focus(), 50);
+  }
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('is-open'); mobileOverlay.classList.remove('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'true'); mobileOverlay.setAttribute('aria-hidden', 'true');
+    hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+    hamburger.focus(); resetMobileNav();
+  }
+  function resetMobileNav() {
+    const root = document.getElementById('tde-mobile-root');
+    const subs = mobileNav.querySelectorAll('.tde-mobile-nav__level--sub');
+    if (root) root.classList.remove('is-hidden');
+    subs.forEach(s => { s.classList.remove('is-active'); s.setAttribute('aria-hidden', 'true'); });
+    mobileNav.querySelectorAll('[data-opens]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+  if (hamburger) hamburger.addEventListener('click', openMobileMenu);
+  if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+  if (mobileNav) {
+    mobileNav.addEventListener('click', e => {
+      const opener = e.target.closest('[data-opens]');
+      if (opener) {
+        e.preventDefault();
+        const target = document.getElementById(opener.getAttribute('data-opens'));
+        const root = document.getElementById('tde-mobile-root');
+        if (target) {
+          opener.setAttribute('aria-expanded', 'true');
+          if (root) root.classList.add('is-hidden');
+          target.classList.add('is-active'); target.setAttribute('aria-hidden', 'false');
+          const firstLink = target.querySelector('a, button');
+          if (firstLink) setTimeout(() => firstLink.focus(), 50);
+        }
+      }
+      const backBtn = e.target.closest('[data-back]');
+      if (backBtn) {
+        e.preventDefault();
+        const subPanel = backBtn.closest('.tde-mobile-nav__level--sub');
+        const root = document.getElementById('tde-mobile-root');
+        if (subPanel) { subPanel.classList.remove('is-active'); subPanel.setAttribute('aria-hidden', 'true'); }
+        if (root) {
+          root.classList.remove('is-hidden');
+          const label = backBtn.textContent.trim();
+          const openerBtn = Array.from(mobileNav.querySelectorAll('[data-opens]')).find(b => b.textContent.trim() === label);
+          if (openerBtn) { openerBtn.setAttribute('aria-expanded', 'false'); openerBtn.focus(); }
+        }
+      }
+    });
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('is-open')) closeMobileMenu(); });
+  const searchBtn = document.getElementById('tde-search-btn');
+  const searchClose = document.getElementById('tde-search-close');
+  const searchOverlay = document.getElementById('tde-search-overlay');
+  const searchInput = document.getElementById('tde-search-input');
+  function openSearch() { if (!searchOverlay) return; searchOverlay.style.opacity = '1'; searchOverlay.style.visibility = 'visible'; searchOverlay.removeAttribute('aria-hidden'); document.body.style.overflow = 'hidden'; if (searchInput) setTimeout(() => searchInput.focus(), 60); }
+  function closeSearch() { if (!searchOverlay) return; searchOverlay.style.opacity = '0'; searchOverlay.style.visibility = 'hidden'; searchOverlay.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+  if (searchBtn) searchBtn.addEventListener('click', openSearch);
+  if (searchClose) searchClose.addEventListener('click', closeSearch);
+  document.querySelectorAll('.tde-mobile-icon-btn[aria-label="Search"]').forEach(btn => { btn.addEventListener('click', () => { closeMobileMenu(); openSearch(); }); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && searchOverlay && searchOverlay.style.visibility === 'visible') closeSearch(); });
+  function updateCartCount() {
+    fetch('/cart.js').then(r => r.json()).then(data => {
+      const count = data.item_count || 0;
+      const badge = document.getElementById('tde-cart-count');
+      if (badge) { badge.textContent = count > 0 ? count : ''; badge.setAttribute('data-count', count); }
+    }).catch(() => {});
+  }
+  document.addEventListener('cart:updated', updateCartCount);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "TDE Mega Menu Header",
+  "tag": "div",
+  "class": "tde-header-section",
+  "settings": [
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Leave blank to use shop name as text" },
+    { "type": "text", "id": "logo_text", "label": "Logo text (if no image)", "default": "THE DAILY EDITED" },
+    { "type": "range", "id": "logo_width", "min": 60, "max": 300, "step": 10, "unit": "px", "label": "Logo image width", "default": 160 },
+    { "type": "header", "content": "Colors & typography" },
+    { "type": "color", "id": "bg_color", "label": "Header background", "default": "#ffffff" },
+    { "type": "color", "id": "nav_text_color", "label": "Nav text color", "default": "#1a1a1a" },
+    { "type": "color", "id": "nav_hover_color", "label": "Nav hover / active color", "default": "#b8a898" },
+    { "type": "color", "id": "dropdown_bg_color", "label": "Dropdown background", "default": "#ffffff" },
+    { "type": "select", "id": "font_family", "label": "Font family", "options": [ { "value": "Helvetica Neue", "label": "Helvetica Neue" }, { "value": "Arial", "label": "Arial" }, { "value": "Georgia", "label": "Georgia" }, { "value": "Futura", "label": "Futura" }, { "value": "Garamond", "label": "Garamond" }, { "value": "system-ui", "label": "System default" } ], "default": "Helvetica Neue" },
+    { "type": "header", "content": "Announcement bar" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
+    { "type": "richtext", "id": "announcement_text", "label": "Announcement text", "default": "<p>Free monogramming · Complimentary shipping over $100 · Signature dust bag included</p>" },
+    { "type": "color", "id": "announcement_bg_color", "label": "Announcement background", "default": "#f5f2ef" },
+    { "type": "color", "id": "announcement_text_color", "label": "Announcement text color", "default": "#1a1a1a" },
+    { "type": "header", "content": "Header features" },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist icon (mobile)", "default": false },
+    { "type": "url", "id": "wishlist_url", "label": "Wishlist page URL" }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation item",
+      "settings": [
+        { "type": "header", "content": "Top-level link" },
+        { "type": "text", "id": "label", "label": "Label", "default": "New" },
+        { "type": "url", "id": "link", "label": "Link URL" },
+        { "type": "url", "id": "view_all_link", "label": "View all link URL", "info": "Shown at top of dropdown column 1. Leave blank to hide." },
+        { "type": "header", "content": "Column 1" },
+        { "type": "text", "id": "col1_heading", "label": "Column 1 heading", "default": "By Style" },
+        { "type": "textarea", "id": "col1_links", "label": "Column 1 links", "info": "One per line. Format: Link text | /collections/handle", "default": "Totes | /collections/totes\nShoulder | /collections/shoulder\nClutches | /collections/clutches" },
+        { "type": "header", "content": "Column 2" },
+        { "type": "text", "id": "col2_heading", "label": "Column 2 heading", "default": "By Collection" },
+        { "type": "textarea", "id": "col2_links", "label": "Column 2 links", "info": "One per line. Format: Link text | /collections/handle" },
+        { "type": "header", "content": "Column 3" },
+        { "type": "text", "id": "col3_heading", "label": "Column 3 heading", "default": "By Edits" },
+        { "type": "textarea", "id": "col3_links", "label": "Column 3 links", "info": "One per line. Format: Link text | /collections/handle" },
+        { "type": "header", "content": "Hero media" },
+        { "type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Recommended: square crop (600x600px)" },
+        { "type": "text", "id": "hero_video", "label": "Hero video URL (MP4)", "info": "Paste a direct .mp4 URL. Overrides image if set." },
+        { "type": "text", "id": "hero_caption", "label": "Hero caption" },
+        { "type": "url", "id": "hero_link", "label": "Hero media link URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TDE Mega Menu",
+      "blocks": [
+        { "type": "nav_item", "settings": { "label": "New", "col1_heading": "What's new", "col1_links": "New arrivals | /collections/new-arrivals\nBest sellers | /collections/best-sellers" } },
+        { "type": "nav_item", "settings": { "label": "Bags", "col1_heading": "By Style", "col1_links": "Totes | /collections/totes\nShoulder | /collections/shoulder-bags\nClutches | /collections/clutches\nCrossbody | /collections/crossbody\nMini | /collections/mini-bags\nWeekender | /collections/weekender", "col2_heading": "By Collection", "col2_links": "Ava | /collections/ava-collection\nClassic | /collections/classic", "col3_heading": "By Edits", "col3_links": "For her | /collections/personalised-gifts-for-her\nFor him | /collections/personalised-gifts-for-him\nNew Bags | /collections/personalised-bags\nWork | /collections/work\nTravel | /collections/personalised-travel-accessories" } },
+        { "type": "nav_item", "settings": { "label": "Phone & Tech", "col1_heading": "iPhone", "col1_links": "iPhone 17 | /collections/personalised-iphone-17-cases-covers\niPhone 16 | /collections/iphone-16\niPhone 15 | /collections/iphone-15\nAll cases | /collections/personalised-phone-cases", "col2_heading": "Other tech", "col2_links": "Laptop cases | /collections/personalised-laptop-cases\nAirPods | /collections/airpods-cases\nShop all | /collections/personalised-tech-accessories" } },
+        { "type": "nav_item", "settings": { "label": "Wallets", "col1_heading": "Shop", "col1_links": "Wallets | /collections/personalised-wallets\nCard Holders | /collections/personalised-card-holders" } },
+        { "type": "nav_item", "settings": { "label": "Travel", "col1_heading": "Travel", "col1_links": "Beauty cases | /collections/personalised-beauty-accessories\nLuggage tags | /collections/luggage-tags\nPassport holders | /collections/passport-holders\nTravel wallets | /collections/personalised-travel-wallets" } },
+        { "type": "nav_item", "settings": { "label": "Gifts", "col1_heading": "By recipient", "col1_links": "For her | /collections/personalised-gifts-for-her\nFor him | /collections/personalised-gifts-for-him\nCorporate | /collections/personalised-corporate-gifts", "col2_heading": "By budget", "col2_links": "Under $100 | /collections/gifts-under-100\nGift cards | /collections/gift-cards" } },
+        { "type": "nav_item", "settings": { "label": "Sale" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
