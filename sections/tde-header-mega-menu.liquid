@@ -1,6 +1,6 @@
 {% comment %}
   TDE Mega Menu Header Section
-  Version: 1.0.0
+  Version: 1.1.0
   Compatible with: Dawn, Debut, Brooklyn, and most Shopify themes
   Dependencies: None (vanilla JS + CSS only)
 {% endcomment %}
@@ -22,6 +22,11 @@
 -%}
 
 <style>
+  /* =============================================
+     TDE MEGA MENU — SCOPED STYLES v1.1
+     ============================================= */
+
+  /* Make the section wrapper itself sticky so Dawn's layout doesn't override it */
   #shopify-section-{{ section_id }} {
     --tde-bg: {{ bg_color }};
     --tde-text: {{ text_color }};
@@ -30,8 +35,15 @@
     --tde-font: {{ font_family }}, sans-serif;
     --tde-transition: 0.22s ease;
     --tde-header-height: 56px;
+    --tde-announcement-height: 0px;
     font-family: var(--tde-font);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
   }
+
+  /* ── Announcement Bar ── */
   .tde-announcement {
     background: {{ announcement_bg }};
     color: {{ announcement_color }};
@@ -42,22 +54,27 @@
     line-height: 1.4;
   }
   .tde-announcement a { color: inherit; text-decoration: underline; }
+
+  /* ── Header Shell ── */
   .tde-header {
     background: var(--tde-bg);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.08);
+    width: 100%;
   }
+
+  /* ── Inner — matches TDE theme page width ── */
   .tde-header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: var(--tde-header-height);
-    padding: 0 32px;
-    max-width: 1440px;
+    /* Use the theme's own page-width variable so it lines up perfectly with content below */
+    max-width: var(--page-width, 1440px);
     margin: 0 auto;
+    padding: 0 var(--page-margin, 32px);
   }
+
+  /* ── Logo ── */
   .tde-logo {
     flex-shrink: 0;
     display: flex;
@@ -74,6 +91,8 @@
     color: var(--tde-text);
     text-decoration: none;
   }
+
+  /* ── Desktop Navigation ── */
   .tde-nav {
     display: flex;
     align-items: center;
@@ -117,6 +136,8 @@
   .tde-nav__item.is-active .tde-nav__link { color: var(--tde-hover); }
   .tde-nav__item:hover .tde-nav__link::after,
   .tde-nav__item.is-active .tde-nav__link::after { transform: scaleX(1); }
+
+  /* ── Header Icons ── */
   .tde-header__icons { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
   .tde-header__icon-btn {
     background: none; border: none; cursor: pointer; padding: 4px;
@@ -132,17 +153,28 @@
     display: flex; align-items: center; justify-content: center; font-weight: 500; line-height: 1;
   }
   .tde-cart-count:empty, .tde-cart-count[data-count="0"] { display: none; }
+
+  /* ── Hamburger (mobile only) ── */
   .tde-hamburger {
     display: none; background: none; border: none; cursor: pointer; padding: 4px;
     color: var(--tde-text); flex-direction: column; gap: 5px;
     align-items: center; justify-content: center; width: 28px; height: 28px;
   }
   .tde-hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; transition: all 0.25s ease; transform-origin: center; }
+
+  /* ── Mega Dropdown ── */
+  /* top is set dynamically by JS to account for announcement bar height */
   .tde-dropdown {
-    position: fixed; top: var(--tde-header-height); left: 0; right: 0;
+    position: fixed;
+    top: var(--tde-header-height);
+    left: 0;
+    right: 0;
     background: var(--tde-dropdown-bg);
-    border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);
-    opacity: 0; visibility: hidden; pointer-events: none;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     transform: translateY(-6px);
     transition: opacity var(--tde-transition), transform var(--tde-transition), visibility var(--tde-transition);
     z-index: 999;
@@ -150,13 +182,15 @@
   .tde-nav__item:hover .tde-dropdown,
   .tde-dropdown:hover,
   .tde-dropdown.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+
+  /* Dropdown inner — same page-width as header */
   .tde-dropdown__inner {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr auto;
     gap: 0 40px;
-    max-width: 1440px;
+    max-width: var(--page-width, 1440px);
     margin: 0 auto;
-    padding: 36px 80px 40px 240px;
+    padding: 36px var(--page-margin, 32px) 40px;
     align-items: start;
   }
   .tde-dropdown__col-header { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 16px; font-family: var(--tde-font); }
@@ -171,8 +205,12 @@
   .tde-dropdown__hero { width: 220px; flex-shrink: 0; position: relative; overflow: hidden; border-radius: 2px; }
   .tde-dropdown__hero img, .tde-dropdown__hero video { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border-radius: 2px; }
   .tde-dropdown__hero-caption { position: absolute; bottom: 10px; left: 12px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; font-family: var(--tde-font); }
+
+  /* ── Page overlay ── */
   .tde-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 998; opacity: 0; visibility: hidden; transition: opacity var(--tde-transition), visibility var(--tde-transition); }
   .tde-overlay.is-active { opacity: 1; visibility: visible; }
+
+  /* ── Mobile Menu ── */
   .tde-mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 90vw); background: #fff; z-index: 2000; overflow-y: auto; transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); overscroll-behavior: contain; }
   .tde-mobile-menu.is-open { transform: translateX(0); box-shadow: 8px 0 32px rgba(0,0,0,0.12); }
   .tde-mobile-menu__overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
@@ -203,6 +241,8 @@
   .tde-mobile-promo { margin: 16px 20px 24px; position: relative; border-radius: 2px; overflow: hidden; }
   .tde-mobile-promo img, .tde-mobile-promo video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; }
   .tde-mobile-promo__caption { position: absolute; bottom: 12px; left: 14px; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: #fff; font-family: var(--tde-font); }
+
+  /* ── Responsive ── */
   @media (max-width: 1024px) {
     .tde-nav { display: none; }
     .tde-hamburger { display: flex; }
@@ -216,7 +256,7 @@
 </style>
 
 {%- if show_announcement and announcement_text != blank -%}
-<div class="tde-announcement">{{ announcement_text }}</div>
+<div class="tde-announcement" id="tde-announcement">{{ announcement_text }}</div>
 {%- endif -%}
 
 <div class="tde-overlay" id="tde-overlay" aria-hidden="true"></div>
@@ -483,8 +523,23 @@
   const mobileOverlay = document.getElementById('tde-mobile-overlay');
   const mobileClose   = document.getElementById('tde-mobile-close');
   const mobileNav     = document.getElementById('tde-mobile-nav');
+
+  // ── Set dropdown top to account for announcement bar height ──
+  function setDropdownTop() {
+    const section = document.getElementById('shopify-section-{{ section_id }}');
+    if (!section) return;
+    const sectionHeight = section.offsetHeight;
+    document.querySelectorAll('.tde-dropdown').forEach(d => {
+      d.style.top = sectionHeight + 'px';
+    });
+  }
+  setDropdownTop();
+  window.addEventListener('resize', setDropdownTop);
+
+  // ── Dropdown hover (desktop) ──
   let closeTimer = null;
   const navItems = document.querySelectorAll('#tde-header .tde-nav__item[data-has-dropdown]');
+
   function openDropdown(item) {
     clearTimeout(closeTimer);
     navItems.forEach(i => { if (i !== item) closeDropdown(i, true); });
@@ -533,6 +588,8 @@
   });
   if (overlay) overlay.addEventListener('click', closeAllDropdowns);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllDropdowns(); });
+
+  // ── Mobile menu ──
   function openMobileMenu() {
     mobileMenu.classList.add('is-open'); mobileOverlay.classList.add('is-open');
     mobileMenu.removeAttribute('aria-hidden'); mobileOverlay.removeAttribute('aria-hidden');
@@ -587,6 +644,8 @@
     });
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('is-open')) closeMobileMenu(); });
+
+  // ── Search overlay ──
   const searchBtn = document.getElementById('tde-search-btn');
   const searchClose = document.getElementById('tde-search-close');
   const searchOverlay = document.getElementById('tde-search-overlay');
@@ -597,6 +656,8 @@
   if (searchClose) searchClose.addEventListener('click', closeSearch);
   document.querySelectorAll('.tde-mobile-icon-btn[aria-label="Search"]').forEach(btn => { btn.addEventListener('click', () => { closeMobileMenu(); openSearch(); }); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && searchOverlay && searchOverlay.style.visibility === 'visible') closeSearch(); });
+
+  // ── Cart count (AJAX) ──
   function updateCartCount() {
     fetch('/cart.js').then(r => r.json()).then(data => {
       const count = data.item_count || 0;
