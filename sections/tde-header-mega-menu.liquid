@@ -1,6 +1,6 @@
 {% comment %}
   TDE Mega Menu Header Section
-  Version: 1.3.0
+  Version: 1.4.0
   Compatible with: Dawn, Debut, Brooklyn, and most Shopify themes
   Dependencies: None (vanilla JS + CSS only)
 {% endcomment %}
@@ -22,15 +22,6 @@
 -%}
 
 <style>
-  /* =============================================
-     TDE MEGA MENU — SCOPED STYLES v1.3
-     ============================================= */
-
-  /*
-    Fixed positioning is the only reliable way to do the Prada
-    scroll effect. Sticky + transform breaks in Safari/Dawn.
-    We compensate for the header height with a spacer div.
-  */
   #shopify-section-{{ section_id }} {
     --tde-bg: {{ bg_color }};
     --tde-text: {{ text_color }};
@@ -40,18 +31,15 @@
     --tde-transition: 0.22s ease;
     --tde-header-height: 56px;
     font-family: var(--tde-font);
-    /* Section itself is just a placeholder — actual header is fixed */
     display: contents;
   }
 
-  /* ── Fixed header wrapper ── */
   .tde-header-fixed {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    /* Prada scroll transition */
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
   }
@@ -59,7 +47,6 @@
     transform: translateY(-100%);
   }
 
-  /* ── Announcement Bar ── */
   .tde-announcement {
     background: {{ announcement_bg }};
     color: {{ announcement_color }};
@@ -71,14 +58,11 @@
   }
   .tde-announcement a { color: inherit; text-decoration: underline; }
 
-  /* ── Header Shell ── */
   .tde-header {
     background: var(--tde-bg);
     border-bottom: 1px solid rgba(0,0,0,0.08);
     width: 100%;
   }
-
-  /* ── Inner — matches TDE theme page width ── */
   .tde-header__inner {
     display: flex;
     align-items: center;
@@ -89,62 +73,22 @@
     padding: 0 var(--page-margin, 32px);
   }
 
-  /* ── Logo ── */
-  .tde-logo {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--tde-text);
-  }
+  .tde-logo { flex-shrink: 0; display: flex; align-items: center; text-decoration: none; color: var(--tde-text); }
   .tde-logo img { width: {{ logo_width }}px; height: auto; display: block; }
-  .tde-logo__text {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--tde-text);
-    text-decoration: none;
-  }
+  .tde-logo__text { font-size: 18px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tde-text); text-decoration: none; }
 
-  /* ── Desktop Navigation ── */
-  .tde-nav {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    height: var(--tde-header-height);
-  }
+  .tde-nav { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0; height: var(--tde-header-height); }
   .tde-nav__item { position: static; height: 100%; display: flex; align-items: center; }
   .tde-nav__link {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 0 16px;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--tde-text);
-    position: relative;
-    transition: color var(--tde-transition);
-    white-space: nowrap;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: var(--tde-font);
+    display: flex; align-items: center; height: 100%; padding: 0 16px;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; color: var(--tde-text); position: relative;
+    transition: color var(--tde-transition); white-space: nowrap;
+    cursor: pointer; background: none; border: none; font-family: var(--tde-font);
   }
   .tde-nav__link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-    right: 16px;
-    height: 2px;
-    background: var(--tde-hover);
-    transform: scaleX(0);
+    content: ''; position: absolute; bottom: 0; left: 16px; right: 16px;
+    height: 2px; background: var(--tde-hover); transform: scaleX(0);
     transition: transform var(--tde-transition);
   }
   .tde-nav__item:hover .tde-nav__link,
@@ -152,7 +96,6 @@
   .tde-nav__item:hover .tde-nav__link::after,
   .tde-nav__item.is-active .tde-nav__link::after { transform: scaleX(1); }
 
-  /* ── Header Icons ── */
   .tde-header__icons { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
   .tde-header__icon-btn {
     background: none; border: none; cursor: pointer; padding: 4px;
@@ -169,7 +112,6 @@
   }
   .tde-cart-count:empty, .tde-cart-count[data-count="0"] { display: none; }
 
-  /* ── Hamburger (mobile only) ── */
   .tde-hamburger {
     display: none; background: none; border: none; cursor: pointer; padding: 4px;
     color: var(--tde-text); flex-direction: column; gap: 5px;
@@ -177,17 +119,11 @@
   }
   .tde-hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; transition: all 0.25s ease; transform-origin: center; }
 
-  /* ── Mega Dropdown ── */
   .tde-dropdown {
-    position: fixed;
-    left: 0;
-    right: 0;
+    position: fixed; left: 0; right: 0;
     background: var(--tde-dropdown-bg);
-    border-top: 1px solid rgba(0,0,0,0.08);
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);
+    opacity: 0; visibility: hidden; pointer-events: none;
     transform: translateY(-6px);
     transition: opacity var(--tde-transition), transform var(--tde-transition), visibility var(--tde-transition);
     z-index: 999;
@@ -197,13 +133,9 @@
   .tde-dropdown.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
 
   .tde-dropdown__inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    gap: 0 40px;
-    max-width: var(--page-width, 1440px);
-    margin: 0 auto;
-    padding: 36px var(--page-margin, 32px) 40px;
-    align-items: start;
+    display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 0 40px;
+    max-width: var(--page-width, 1440px); margin: 0 auto;
+    padding: 36px var(--page-margin, 32px) 40px; align-items: start;
   }
   .tde-dropdown__col-header { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 16px; font-family: var(--tde-font); }
   .tde-dropdown__col-subheader { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin: 18px 0 8px; font-family: var(--tde-font); }
@@ -218,11 +150,9 @@
   .tde-dropdown__hero img, .tde-dropdown__hero video { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border-radius: 2px; }
   .tde-dropdown__hero-caption { position: absolute; bottom: 10px; left: 12px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; font-family: var(--tde-font); }
 
-  /* ── Page overlay ── */
   .tde-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 998; opacity: 0; visibility: hidden; transition: opacity var(--tde-transition), visibility var(--tde-transition); }
   .tde-overlay.is-active { opacity: 1; visibility: visible; }
 
-  /* ── Mobile Menu ── */
   .tde-mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(360px, 90vw); background: #fff; z-index: 2000; overflow-y: auto; transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); overscroll-behavior: contain; }
   .tde-mobile-menu.is-open { transform: translateX(0); box-shadow: 8px 0 32px rgba(0,0,0,0.12); }
   .tde-mobile-menu__overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
@@ -254,7 +184,6 @@
   .tde-mobile-promo img, .tde-mobile-promo video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; }
   .tde-mobile-promo__caption { position: absolute; bottom: 12px; left: 14px; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: #fff; font-family: var(--tde-font); }
 
-  /* ── Responsive ── */
   @media (max-width: 1024px) {
     .tde-nav { display: none; }
     .tde-hamburger { display: flex; }
@@ -267,14 +196,11 @@
   }
 </style>
 
-{%- comment -%} Fixed header wrapper — sits outside normal flow {%- endcomment -%}
 <div class="tde-header-fixed" id="tde-header-fixed">
   {%- if show_announcement and announcement_text != blank -%}
   <div class="tde-announcement" id="tde-announcement">{{ announcement_text }}</div>
   {%- endif -%}
-
   <div class="tde-overlay" id="tde-overlay" aria-hidden="true"></div>
-
   <header class="tde-header" role="banner" id="tde-header">
     <div class="tde-header__inner">
       <button class="tde-hamburger" id="tde-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="tde-mobile-menu">
@@ -314,10 +240,7 @@
                       {%- if block.settings.col1_heading != blank -%}<div class="tde-dropdown__col-subheader">{{ block.settings.col1_heading }}</div>{%- endif -%}
                       <ul class="tde-dropdown__links" role="list">
                         {%- assign col1_lines = block.settings.col1_links | newline_to_br | split: '<br />' -%}
-                        {%- for line in col1_lines -%}
-                          {%- assign parts = line | strip | split: '|' -%}
-                          {%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}
-                        {%- endfor -%}
+                        {%- for line in col1_lines -%}{%- assign parts = line | strip | split: '|' -%}{%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}{%- endfor -%}
                       </ul>
                     </div>
                     {%- endif -%}
@@ -326,10 +249,7 @@
                       {%- if block.settings.col2_heading != blank -%}<div class="tde-dropdown__col-header">{{ block.settings.col2_heading }}</div>{%- endif -%}
                       <ul class="tde-dropdown__links" role="list">
                         {%- assign col2_lines = block.settings.col2_links | newline_to_br | split: '<br />' -%}
-                        {%- for line in col2_lines -%}
-                          {%- assign parts = line | strip | split: '|' -%}
-                          {%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}
-                        {%- endfor -%}
+                        {%- for line in col2_lines -%}{%- assign parts = line | strip | split: '|' -%}{%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}{%- endfor -%}
                       </ul>
                     </div>
                     {%- endif -%}
@@ -338,10 +258,7 @@
                       {%- if block.settings.col3_heading != blank -%}<div class="tde-dropdown__col-header">{{ block.settings.col3_heading }}</div>{%- endif -%}
                       <ul class="tde-dropdown__links" role="list">
                         {%- assign col3_lines = block.settings.col3_links | newline_to_br | split: '<br />' -%}
-                        {%- for line in col3_lines -%}
-                          {%- assign parts = line | strip | split: '|' -%}
-                          {%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}
-                        {%- endfor -%}
+                        {%- for line in col3_lines -%}{%- assign parts = line | strip | split: '|' -%}{%- if parts[0] != blank -%}<li><a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a></li>{%- endif -%}{%- endfor -%}
                       </ul>
                     </div>
                     {%- endif -%}
@@ -389,7 +306,6 @@
   </header>
 </div>
 
-{%- comment -%} Spacer div — holds the space the fixed header occupies {%- endcomment -%}
 <div id="tde-header-spacer"></div>
 
 <div class="tde-mobile-menu__overlay" id="tde-mobile-overlay" aria-hidden="true"></div>
@@ -535,16 +451,23 @@
 <script>
 (function() {
   'use strict';
-  const headerFixed  = document.getElementById('tde-header-fixed');
-  const spacer       = document.getElementById('tde-header-spacer');
-  const overlay      = document.getElementById('tde-overlay');
-  const hamburger    = document.getElementById('tde-hamburger');
-  const mobileMenu   = document.getElementById('tde-mobile-menu');
+  const headerFixed   = document.getElementById('tde-header-fixed');
+  const spacer        = document.getElementById('tde-header-spacer');
+  const overlay       = document.getElementById('tde-overlay');
+  const hamburger     = document.getElementById('tde-hamburger');
+  const mobileMenu    = document.getElementById('tde-mobile-menu');
   const mobileOverlay = document.getElementById('tde-mobile-overlay');
-  const mobileClose  = document.getElementById('tde-mobile-close');
-  const mobileNav    = document.getElementById('tde-mobile-nav');
+  const mobileClose   = document.getElementById('tde-mobile-close');
+  const mobileNav     = document.getElementById('tde-mobile-nav');
 
-  // ── Spacer: keeps page content below the fixed header ───────
+  // ── KEY FIX: escape Dawn's header-group container ───────────
+  // Dawn's shopify-section-group-header-group has CSS containment
+  // that traps fixed children. Moving to <body> fixes it.
+  if (headerFixed && headerFixed.parentElement !== document.body) {
+    document.body.appendChild(headerFixed);
+  }
+
+  // ── Spacer: holds space the fixed header occupies ────────────
   function updateSpacer() {
     if (!headerFixed || !spacer) return;
     spacer.style.height = headerFixed.offsetHeight + 'px';
@@ -552,7 +475,7 @@
   updateSpacer();
   window.addEventListener('resize', updateSpacer);
 
-  // ── Dropdown top: sits flush below the fixed header ─────────
+  // ── Dropdown top: flush below fixed header ───────────────────
   function setDropdownTop() {
     if (!headerFixed) return;
     document.querySelectorAll('.tde-dropdown').forEach(d => {
@@ -571,14 +494,12 @@
     const currentScrollY = window.scrollY;
     const scrollingDown = currentScrollY > lastScrollY;
     const pastThreshold = currentScrollY > SCROLL_THRESHOLD;
-
     if (scrollingDown && pastThreshold) {
       headerFixed.classList.add('is-hidden');
       closeAllDropdowns();
     } else {
       headerFixed.classList.remove('is-hidden');
     }
-
     lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
     scrollTicking = false;
   }
