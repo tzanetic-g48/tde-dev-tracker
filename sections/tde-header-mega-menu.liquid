@@ -1,6 +1,6 @@
 {% comment %}
   TDE Mega Menu Header Section
-  Version: 1.1.0
+  Version: 1.2.0
   Compatible with: Dawn, Debut, Brooklyn, and most Shopify themes
   Dependencies: None (vanilla JS + CSS only)
 {% endcomment %}
@@ -23,10 +23,9 @@
 
 <style>
   /* =============================================
-     TDE MEGA MENU — SCOPED STYLES v1.1
+     TDE MEGA MENU — SCOPED STYLES v1.2
      ============================================= */
 
-  /* Make the section wrapper itself sticky so Dawn's layout doesn't override it */
   #shopify-section-{{ section_id }} {
     --tde-bg: {{ bg_color }};
     --tde-text: {{ text_color }};
@@ -35,12 +34,13 @@
     --tde-font: {{ font_family }}, sans-serif;
     --tde-transition: 0.22s ease;
     --tde-header-height: 56px;
-    --tde-announcement-height: 0px;
     font-family: var(--tde-font);
     position: sticky;
     top: 0;
     z-index: 1000;
     width: 100%;
+    /* Prada scroll effect — smooth slide up/down */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* ── Announcement Bar ── */
@@ -68,7 +68,6 @@
     align-items: center;
     justify-content: space-between;
     height: var(--tde-header-height);
-    /* Use the theme's own page-width variable so it lines up perfectly with content below */
     max-width: var(--page-width, 1440px);
     margin: 0 auto;
     padding: 0 var(--page-margin, 32px);
@@ -163,7 +162,6 @@
   .tde-hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; transition: all 0.25s ease; transform-origin: center; }
 
   /* ── Mega Dropdown ── */
-  /* top is set dynamically by JS to account for announcement bar height */
   .tde-dropdown {
     position: fixed;
     top: var(--tde-header-height);
@@ -183,7 +181,6 @@
   .tde-dropdown:hover,
   .tde-dropdown.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
 
-  /* Dropdown inner — same page-width as header */
   .tde-dropdown__inner {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr auto;
@@ -517,26 +514,53 @@
 <script>
 (function() {
   'use strict';
-  const overlay   = document.getElementById('tde-overlay');
-  const hamburger = document.getElementById('tde-hamburger');
-  const mobileMenu    = document.getElementById('tde-mobile-menu');
+  const sectionEl    = document.getElementById('shopify-section-{{ section_id }}');
+  const overlay      = document.getElementById('tde-overlay');
+  const hamburger    = document.getElementById('tde-hamburger');
+  const mobileMenu   = document.getElementById('tde-mobile-menu');
   const mobileOverlay = document.getElementById('tde-mobile-overlay');
-  const mobileClose   = document.getElementById('tde-mobile-close');
-  const mobileNav     = document.getElementById('tde-mobile-nav');
+  const mobileClose  = document.getElementById('tde-mobile-close');
+  const mobileNav    = document.getElementById('tde-mobile-nav');
 
-  // ── Set dropdown top to account for announcement bar height ──
+  // ── Prada-style scroll hide/reveal ──────────────────────────
+  let lastScrollY = window.scrollY;
+  let scrollTicking = false;
+  const SCROLL_THRESHOLD = 80; // px from top before hide kicks in
+
+  function handleScroll() {
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY;
+    const pastThreshold = currentScrollY > SCROLL_THRESHOLD;
+
+    if (scrollingDown && pastThreshold) {
+      if (sectionEl) sectionEl.style.transform = 'translateY(-100%)';
+      closeAllDropdowns();
+    } else {
+      if (sectionEl) sectionEl.style.transform = 'translateY(0)';
+    }
+
+    lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+    scrollTicking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(handleScroll);
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
+  // ── Set dropdown top to account for full section height ──────
   function setDropdownTop() {
-    const section = document.getElementById('shopify-section-{{ section_id }}');
-    if (!section) return;
-    const sectionHeight = section.offsetHeight;
+    if (!sectionEl) return;
     document.querySelectorAll('.tde-dropdown').forEach(d => {
-      d.style.top = sectionHeight + 'px';
+      d.style.top = sectionEl.offsetHeight + 'px';
     });
   }
   setDropdownTop();
   window.addEventListener('resize', setDropdownTop);
 
-  // ── Dropdown hover (desktop) ──
+  // ── Dropdown hover (desktop) ─────────────────────────────────
   let closeTimer = null;
   const navItems = document.querySelectorAll('#tde-header .tde-nav__item[data-has-dropdown]');
 
@@ -589,7 +613,7 @@
   if (overlay) overlay.addEventListener('click', closeAllDropdowns);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllDropdowns(); });
 
-  // ── Mobile menu ──
+  // ── Mobile menu ──────────────────────────────────────────────
   function openMobileMenu() {
     mobileMenu.classList.add('is-open'); mobileOverlay.classList.add('is-open');
     mobileMenu.removeAttribute('aria-hidden'); mobileOverlay.removeAttribute('aria-hidden');
@@ -645,11 +669,11 @@
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('is-open')) closeMobileMenu(); });
 
-  // ── Search overlay ──
-  const searchBtn = document.getElementById('tde-search-btn');
-  const searchClose = document.getElementById('tde-search-close');
+  // ── Search overlay ───────────────────────────────────────────
+  const searchBtn     = document.getElementById('tde-search-btn');
+  const searchClose   = document.getElementById('tde-search-close');
   const searchOverlay = document.getElementById('tde-search-overlay');
-  const searchInput = document.getElementById('tde-search-input');
+  const searchInput   = document.getElementById('tde-search-input');
   function openSearch() { if (!searchOverlay) return; searchOverlay.style.opacity = '1'; searchOverlay.style.visibility = 'visible'; searchOverlay.removeAttribute('aria-hidden'); document.body.style.overflow = 'hidden'; if (searchInput) setTimeout(() => searchInput.focus(), 60); }
   function closeSearch() { if (!searchOverlay) return; searchOverlay.style.opacity = '0'; searchOverlay.style.visibility = 'hidden'; searchOverlay.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
   if (searchBtn) searchBtn.addEventListener('click', openSearch);
@@ -657,7 +681,7 @@
   document.querySelectorAll('.tde-mobile-icon-btn[aria-label="Search"]').forEach(btn => { btn.addEventListener('click', () => { closeMobileMenu(); openSearch(); }); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && searchOverlay && searchOverlay.style.visibility === 'visible') closeSearch(); });
 
-  // ── Cart count (AJAX) ──
+  // ── Cart count (AJAX) ────────────────────────────────────────
   function updateCartCount() {
     fetch('/cart.js').then(r => r.json()).then(data => {
       const count = data.item_count || 0;
