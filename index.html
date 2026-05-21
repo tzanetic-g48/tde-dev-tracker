@@ -181,9 +181,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="main">
-  <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>8 developer features &middot; click any card to view details, update status, and log hours</p></div>
+  <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>9 developer features &middot; click any card to view details, update status, and log hours</p></div>
   <div class="summary">
-    <div class="scard"><div class="scard-label">To do</div><div class="scard-val" id="s-todo">8</div></div>
+    <div class="scard"><div class="scard-label">To do</div><div class="scard-val" id="s-todo">9</div></div>
     <div class="scard"><div class="scard-label">In progress</div><div class="scard-val blue" id="s-progress">0</div></div>
     <div class="scard"><div class="scard-label">In review</div><div class="scard-val amber" id="s-review">0</div></div>
     <div class="scard"><div class="scard-label">Done</div><div class="scard-val green" id="s-done">0</div></div>
@@ -201,7 +201,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <div id="view-board">
     <div class="kanban">
-      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">8</span></div><div id="col-todo"></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">9</span></div><div id="col-todo"></div></div>
       <div class="col"><div class="col-header"><span class="col-name">🔧 In progress</span><span class="col-count" id="c-progress">0</span></div><div id="col-progress"><div class="empty">no tasks yet</div></div></div>
       <div class="col"><div class="col-header"><span class="col-name">👀 In review</span><span class="col-count" id="c-review">0</span></div><div id="col-review"><div class="empty">no tasks yet</div></div></div>
       <div class="col"><div class="col-header"><span class="col-name">✅ Done</span><span class="col-count" id="c-done">0</span></div><div id="col-done"><div class="empty">no tasks yet</div></div></div>
@@ -238,6 +238,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <a href="#brief-6" onclick="scrollToBrief(6)">F6 &mdash; Recently viewed</a>
         <a href="#brief-7" onclick="scrollToBrief(7)">F7 &mdash; Search suggestions</a>
         <a href="#brief-8" onclick="scrollToBrief(8)">F8 &mdash; USP icon strip</a>
+        <a href="#brief-9" onclick="scrollToBrief(9)">F9 &mdash; Collection-adaptive PDP</a>
       </div>
       <div class="brief-content">
 
@@ -258,8 +259,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
               <div style="font-size:12px;color:var(--text)">Do <strong>not</strong> render TailorKit widget inside Quick View. Use plain text input for initials only.</div>
             </div>
             <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px">
-              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7, F8 &mdash; Fully compatible &mdash; no blockers</div>
-              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip all confirmed compatible.</div>
+              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7, F8, F9 &mdash; Fully compatible &mdash; no blockers</div>
+              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip, Collection-adaptive PDP all confirmed compatible.</div>
             </div>
           </div>
         </div>
@@ -267,10 +268,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="brief-section" style="background:var(--text);color:#fff;border-color:var(--text)">
           <div style="font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">TDE CRO &amp; UX Brief &mdash; March 2026</div>
           <div style="font-size:20px;font-weight:600;margin-bottom:8px">Developer brief &amp; technical specifications</div>
-          <div style="font-size:13px;opacity:.7;line-height:1.6">8 features to improve product discovery, conversion, and UX on thedailyedited.com.</div>
+          <div style="font-size:13px;opacity:.7;line-height:1.6">9 features to improve product discovery, conversion, and UX on thedailyedited.com.</div>
           <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap">
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Phase 2&ndash;5</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~146h estimated</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~166h estimated</span>
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Shopify / Liquid</span>
           </div>
         </div>
@@ -377,6 +378,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <div class="brief-subsection-title">Shopify files to modify</div>
             <div class="files-block">sections/main-product.liquid<br>assets/tde-cro.css &mdash; add .tde-usp-strip styles<br>assets/truck.svg &mdash; upload provided file<br>assets/monogramming.svg &mdash; upload provided file<br>assets/dustbagicon.svg &mdash; upload provided file</div>
           </div>
+        </div>
+
+        <div class="brief-section" id="brief-9">
+          <div class="brief-section-header"><div class="brief-num">9</div><div class="brief-section-title">Collection-adaptive product page template</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 3 &middot; 3&ndash;4 days &middot; Est 20h</span></div>
+          <div class="data-callout"><strong>Why:</strong> TDE sells across distinct categories (bags, personalised, travel) with different purchase triggers. A single PDP layout underserves each &mdash; personalised buyers need monogramming context early; bag buyers need size/material detail; travel buyers need functionality callouts.</div>
+          <div class="brief-subsection"><div class="brief-subsection-title">9A &mdash; Alternate template files</div><ul class="brief-list"><li>Create <code>product.bags.json</code>, <code>product.personalised.json</code>, <code>product.travel.json</code> in the Shopify theme</li><li>Each template references <code>sections/main-product.liquid</code> + a collection-specific content snippet</li><li>Auto-assign via product tag: <strong>template:bags</strong>, <strong>template:personalised</strong>, <strong>template:travel</strong></li><li>Default <code>product.json</code> remains unchanged as fallback for untagged products</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">9B &mdash; Personalised template</div><ul class="brief-list"><li>Surface monogramming initials input <strong>above the fold</strong>, before the ATC button</li><li>Add callout block: &ldquo;Free monogramming on all personalised items &mdash; allow 2&ndash;3 extra days&rdquo;</li><li>Show <code>monogramming.svg</code> icon inline with the callout text</li><li>Plain text initials field only &mdash; do <strong>not</strong> render TailorKit widget (see F3 constraint)</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">9C &mdash; Bags template</div><ul class="brief-list"><li>Add collapsible <strong>Size guide</strong> section with dimensions table below product description</li><li>Add <strong>Material &amp; care</strong> accordion block pulling from metafield <code>custom.material_care</code></li><li>Trust callout: leather quality / handcrafted note if <code>custom.craftsmanship_note</code> metafield is present</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">9D &mdash; Travel template</div><ul class="brief-list"><li>Add <strong>What fits inside</strong> capacity callout block via metafield <code>custom.capacity_note</code></li><li>Surface carry-on compliance note if applicable</li><li>Highlight water-resistant / material properties via a feature chip row</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">9E &mdash; Shared requirements</div><ul class="brief-list"><li>All templates inherit USP strip (F8): Complimentary Shipping, Free Monogramming, Signature Dust Bag</li><li>No duplication &mdash; shared logic lives in <code>snippets/product-template-content.liquid</code>, included by each template</li><li>Mobile-first &mdash; all new blocks must meet min 44&times;44px tap targets</li><li>Deploy each template to test theme before assigning to live products</li></ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to create/modify</div><div class="files-block">templates/product.bags.json &mdash; create new<br>templates/product.personalised.json &mdash; create new<br>templates/product.travel.json &mdash; create new<br>sections/main-product.liquid<br>snippets/product-template-content.liquid &mdash; create new</div></div>
         </div>
 
         <div class="brief-section" style="background:var(--surface2)">
@@ -488,7 +501,11 @@ const TASKS=[
   {id:8,num:"Feature 8",page:"pdp",priority:"high",phase:"Phase 2 - 1-2 days",estHours:6,
    title:"USP icon strip on PDP (below Afterpay)",
    bullets:["3 USP icons with labels directly below the Afterpay line on all PDPs","Complimentary Shipping (truck.svg), Free Monogramming (monogramming.svg), Signature Dust Bag Included (dustbagicon.svg)","SVG files provided — upload to Assets folder, reference via asset_url","3 equal columns, justify-content: center on both mobile (375px) and desktop (1440px)","Icon size: 32px. Label: 11px, colour #585b62, not bold, centred below icon","Reference: heiych.com.au PDP for layout style","Wrap in <div class='tde-usp-strip'>. Static only, no hover effects","Place after closing {% endif %} of the Afterpay block in main-product.liquid"],
-   files:["sections/main-product.liquid","assets/tde-cro.css","assets/truck.svg","assets/monogramming.svg","assets/dustbagicon.svg"]}
+   files:["sections/main-product.liquid","assets/tde-cro.css","assets/truck.svg","assets/monogramming.svg","assets/dustbagicon.svg"]},
+  {id:9,num:"Feature 9",page:"pdp",priority:"high",phase:"Phase 3 - 3-4 days",estHours:20,
+   title:"Collection-adaptive product page template",
+   bullets:["Build alternate product templates per collection context: product.bags.json, product.personalised.json, product.travel.json","Each template adapts content blocks, trust signals, and section ordering to match the collection type","Personalised: surface monogramming initials input above the fold with free monogramming callout before ATC","Bags: add collapsible size guide and Material & care accordion pulling from custom.material_care metafield","Travel: add What fits inside capacity callout and feature chip row for material/water-resistance properties","Auto-assign template via product tag (e.g. template:personalised) — no manual switching per product","All templates inherit USP strip (F8) and share core Liquid structure via snippets/product-template-content.liquid"],
+   files:["templates/product.bags.json — create new","templates/product.personalised.json — create new","templates/product.travel.json — create new","sections/main-product.liquid","snippets/product-template-content.liquid — create new"]}
 ];
 const PL={collection:"Collection page",pdp:"Product page",sitewide:"Site-wide"};
 const ST=["todo","progress","review","done"];
