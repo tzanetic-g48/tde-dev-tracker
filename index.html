@@ -238,7 +238,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <a href="#brief-6" onclick="scrollToBrief(6)">F6 &mdash; Recently viewed</a>
         <a href="#brief-7" onclick="scrollToBrief(7)">F7 &mdash; Search suggestions</a>
         <a href="#brief-8" onclick="scrollToBrief(8)">F8 &mdash; USP icon strip</a>
-        <a href="#brief-9" onclick="scrollToBrief(9)">F9 &mdash; Collection-adaptive PDP</a>
+        <a href="#brief-9" onclick="scrollToBrief(9)">F9 &mdash; Cuyana-style PDP</a>
       </div>
       <div class="brief-content">
 
@@ -260,7 +260,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             </div>
             <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px">
               <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7, F8, F9 &mdash; Fully compatible &mdash; no blockers</div>
-              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip, Collection-adaptive PDP all confirmed compatible.</div>
+              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip, Cuyana-style PDP all confirmed compatible.</div>
             </div>
           </div>
         </div>
@@ -271,7 +271,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div style="font-size:13px;opacity:.7;line-height:1.6">9 features to improve product discovery, conversion, and UX on thedailyedited.com.</div>
           <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap">
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Phase 2&ndash;5</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~166h estimated</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~171h estimated</span>
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Shopify / Liquid</span>
           </div>
         </div>
@@ -314,7 +314,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="brief-section" id="brief-5">
           <div class="brief-section-header"><div class="brief-num">5</div><div class="brief-section-title">&lsquo;Complete the look&rsquo; on PDP</div></div>
           <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 5 &middot; 3&ndash;4 days &middot; Est 18h</span></div>
-          <ul class="brief-list"><li>Horizontal row below description — 2&ndash;4 complementary products</li><li>Curated via metafield: <code>custom.complete_the_look</code> (max 4)</li><li>AJAX add per item. Mobile: horizontal scroll. Desktop: grid</li></ul>
+          <ul class="brief-list"><li>Horizontal product row below main product description - Complete the look</li><li>2-4 complementary products: image, name, price, individual Add button</li><li>Products curated via metafield: custom.complete_the_look (max 4 references)</li><li>AJAX add to cart per item. Mobile: horizontal scroll. Desktop: grid</li></ul>
           <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">sections/main-product.liquid<br>snippets/complete-the-look.liquid &mdash; create new<br>assets/product.js</div></div>
         </div>
 
@@ -381,15 +381,61 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </div>
 
         <div class="brief-section" id="brief-9">
-          <div class="brief-section-header"><div class="brief-num">9</div><div class="brief-section-title">Collection-adaptive product page template</div></div>
-          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 3 &middot; 3&ndash;4 days &middot; Est 20h</span></div>
-          <div class="data-callout"><strong>Why:</strong> TDE sells across distinct categories (bags, personalised, travel) with different purchase triggers. A single PDP layout underserves each &mdash; personalised buyers need monogramming context early; bag buyers need size/material detail; travel buyers need functionality callouts.</div>
-          <div class="brief-subsection"><div class="brief-subsection-title">9A &mdash; Alternate template files</div><ul class="brief-list"><li>Create <code>product.bags.json</code>, <code>product.personalised.json</code>, <code>product.travel.json</code> in the Shopify theme</li><li>Each template references <code>sections/main-product.liquid</code> + a collection-specific content snippet</li><li>Auto-assign via product tag: <strong>template:bags</strong>, <strong>template:personalised</strong>, <strong>template:travel</strong></li><li>Default <code>product.json</code> remains unchanged as fallback for untagged products</li></ul></div>
-          <div class="brief-subsection"><div class="brief-subsection-title">9B &mdash; Personalised template</div><ul class="brief-list"><li>Surface monogramming initials input <strong>above the fold</strong>, before the ATC button</li><li>Add callout block: &ldquo;Free monogramming on all personalised items &mdash; allow 2&ndash;3 extra days&rdquo;</li><li>Show <code>monogramming.svg</code> icon inline with the callout text</li><li>Plain text initials field only &mdash; do <strong>not</strong> render TailorKit widget (see F3 constraint)</li></ul></div>
-          <div class="brief-subsection"><div class="brief-subsection-title">9C &mdash; Bags template</div><ul class="brief-list"><li>Add collapsible <strong>Size guide</strong> section with dimensions table below product description</li><li>Add <strong>Material &amp; care</strong> accordion block pulling from metafield <code>custom.material_care</code></li><li>Trust callout: leather quality / handcrafted note if <code>custom.craftsmanship_note</code> metafield is present</li></ul></div>
-          <div class="brief-subsection"><div class="brief-subsection-title">9D &mdash; Travel template</div><ul class="brief-list"><li>Add <strong>What fits inside</strong> capacity callout block via metafield <code>custom.capacity_note</code></li><li>Surface carry-on compliance note if applicable</li><li>Highlight water-resistant / material properties via a feature chip row</li></ul></div>
-          <div class="brief-subsection"><div class="brief-subsection-title">9E &mdash; Shared requirements</div><ul class="brief-list"><li>All templates inherit USP strip (F8): Complimentary Shipping, Free Monogramming, Signature Dust Bag</li><li>No duplication &mdash; shared logic lives in <code>snippets/product-template-content.liquid</code>, included by each template</li><li>Mobile-first &mdash; all new blocks must meet min 44&times;44px tap targets</li><li>Deploy each template to test theme before assigning to live products</li></ul></div>
-          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to create/modify</div><div class="files-block">templates/product.bags.json &mdash; create new<br>templates/product.personalised.json &mdash; create new<br>templates/product.travel.json &mdash; create new<br>sections/main-product.liquid<br>snippets/product-template-content.liquid &mdash; create new</div></div>
+          <div class="brief-section-header"><div class="brief-num">9</div><div class="brief-section-title">Cuyana-style product page layout</div></div>
+          <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 25h</span><a class="ref-link" href="https://cuyana.com/products/system-tote-13-inch-v2" target="_blank">Reference: Cuyana PDP &#8599;</a></div>
+          <div class="data-callout"><strong>Why:</strong> TDE's current PDP is a generic single-column layout. Cuyana's split-panel design (sticky gallery left, scrolling info right with inline trust signals, feature chips, and accordions) increases product engagement and reduces the friction between browsing and buying.</div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9A &mdash; Split layout (desktop &ge;990px)</div><ul class="brief-list">
+            <li>Left column (~55%): sticky image gallery — large hero image + scrollable thumbnail strip beneath (5&ndash;7 images: hero, lifestyle, detail shots, interior)</li>
+            <li>Clicking a thumbnail swaps the hero image. No lightbox required</li>
+            <li>Right column (~45%): scrolls independently while gallery stays fixed</li>
+            <li><strong>Right column order top to bottom:</strong> breadcrumb &rarr; product title &rarr; price &rarr; Afterpay line &rarr; USP strip (F8) &rarr; colour swatches &rarr; size buttons &rarr; monogramming section (personalised template only) &rarr; ATC button &rarr; feature highlights grid &rarr; accordions</li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9B &mdash; Colour &amp; size selectors</div><ul class="brief-list">
+            <li>Colour: 20&times;20px swatch circles from <code>custom.colour_siblings</code> metafield &mdash; clicking navigates to the sibling product URL (same data source as F2)</li>
+            <li>Active swatch: black ring. Hover: colour name tooltip. Show &ldquo;Colour: [name]&rdquo; label above swatches</li>
+            <li>Size: pill-style buttons for each variant (e.g. 13-inch / 16-inch). Active state = black bg, white text. Min 44&times;44px tap target</li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9C &mdash; Feature highlights grid</div><ul class="brief-list">
+            <li>3-column chip row placed below the product description, above the accordions</li>
+            <li>Each chip: small icon + bold label + one-line descriptor (e.g. <strong>Italian Leather</strong> &mdash; &ldquo;Full-grain, LWG certified&rdquo;)</li>
+            <li>Pull values from metafield <code>custom.feature_highlights</code> (JSON list, max 3). Fall back to static defaults per template if metafield is empty</li>
+            <li>Bags default chips: <em>Full-Grain Leather, Handcrafted, Dust Bag Included</em></li>
+            <li>Personalised default chips: <em>Free Monogramming, Made to Order, Allow 2&ndash;3 Extra Days</em></li>
+            <li>Travel default chips: <em>Water-Resistant, Carry-On Compatible, Lightweight</em></li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9D &mdash; Monogramming section (personalised template only)</div><ul class="brief-list">
+            <li>Placed directly above the ATC button</li>
+            <li>Callout block: <code>monogramming.svg</code> icon + &ldquo;Free monogramming &mdash; allow 2&ndash;3 extra days&rdquo;</li>
+            <li>Plain text initials input (max 3 chars, uppercase enforced via JS). Label: &ldquo;Add your initials (optional)&rdquo;</li>
+            <li>Do <strong>not</strong> render TailorKit widget here &mdash; plain input only (same constraint as F3)</li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9E &mdash; Accordion sections</div><ul class="brief-list">
+            <li><strong>Dimensions &amp; Care</strong> &mdash; pull height, width, depth, weight, handle drop from metafield <code>custom.dimensions</code>. Append static care copy below</li>
+            <li><strong>Shipping &amp; Returns</strong> &mdash; static copy: complimentary shipping threshold, processing times (standard 1&ndash;2 days, monogrammed 3&ndash;4 days), 30-day returns</li>
+            <li><strong>Warranty</strong> &mdash; static copy with link to /pages/warranty</li>
+            <li>All accordions collapsed by default. One open at a time. Min 44px tap target on trigger row</li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9F &mdash; Mobile (&lt;990px)</div><ul class="brief-list">
+            <li>Single column. Image gallery becomes a full-width swipe carousel (no sticky behaviour)</li>
+            <li>All right-column content stacks below the carousel in the same order as desktop</li>
+            <li>ATC button: sticky bar fixed to bottom of viewport, always visible while scrolling</li>
+            <li>Accordions collapsed by default</li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">9G &mdash; Template assignment</div><ul class="brief-list">
+            <li>Create <code>product.bags.json</code>, <code>product.personalised.json</code>, <code>product.travel.json</code> — each references <code>sections/main-product.liquid</code> with a template-specific section setting</li>
+            <li>Auto-assign via product tag: <strong>template:bags</strong>, <strong>template:personalised</strong>, <strong>template:travel</strong></li>
+            <li>Default <code>product.json</code> unchanged as fallback for untagged products</li>
+            <li>Deploy each to test theme before assigning to live products</li>
+          </ul></div>
+
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to create/modify</div><div class="files-block">templates/product.bags.json &mdash; create new<br>templates/product.personalised.json &mdash; create new<br>templates/product.travel.json &mdash; create new<br>sections/main-product.liquid<br>snippets/product-template-content.liquid &mdash; create new<br>assets/tde-pdp.css &mdash; split layout, gallery, accordions, feature chips</div></div>
         </div>
 
         <div class="brief-section" style="background:var(--surface2)">
@@ -401,6 +447,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <li>Quick back click rate on /collections/personalised-bags target: <strong>&lt;130/week</strong></li>
             <li>Search quick back clicks target: <strong>&lt;40/week</strong></li>
             <li>USP strip must be centred on iPhone Safari and Android Chrome</li>
+            <li>F9 split layout: gallery must remain sticky until all accordion content is scrolled past</li>
+            <li>F9 mobile: sticky ATC bar must not obscure accordion content or footer</li>
             <li>Deploy to test theme first &mdash; share preview URL before going live</li>
           </ul>
         </div>
@@ -502,10 +550,10 @@ const TASKS=[
    title:"USP icon strip on PDP (below Afterpay)",
    bullets:["3 USP icons with labels directly below the Afterpay line on all PDPs","Complimentary Shipping (truck.svg), Free Monogramming (monogramming.svg), Signature Dust Bag Included (dustbagicon.svg)","SVG files provided — upload to Assets folder, reference via asset_url","3 equal columns, justify-content: center on both mobile (375px) and desktop (1440px)","Icon size: 32px. Label: 11px, colour #585b62, not bold, centred below icon","Reference: heiych.com.au PDP for layout style","Wrap in <div class='tde-usp-strip'>. Static only, no hover effects","Place after closing {% endif %} of the Afterpay block in main-product.liquid"],
    files:["sections/main-product.liquid","assets/tde-cro.css","assets/truck.svg","assets/monogramming.svg","assets/dustbagicon.svg"]},
-  {id:9,num:"Feature 9",page:"pdp",priority:"high",phase:"Phase 3 - 3-4 days",estHours:20,
-   title:"Collection-adaptive product page template",
-   bullets:["Build alternate product templates per collection context: product.bags.json, product.personalised.json, product.travel.json","Each template adapts content blocks, trust signals, and section ordering to match the collection type","Personalised: surface monogramming initials input above the fold with free monogramming callout before ATC","Bags: add collapsible size guide and Material & care accordion pulling from custom.material_care metafield","Travel: add What fits inside capacity callout and feature chip row for material/water-resistance properties","Auto-assign template via product tag (e.g. template:personalised) — no manual switching per product","All templates inherit USP strip (F8) and share core Liquid structure via snippets/product-template-content.liquid"],
-   files:["templates/product.bags.json — create new","templates/product.personalised.json — create new","templates/product.travel.json — create new","sections/main-product.liquid","snippets/product-template-content.liquid — create new"]}
+  {id:9,num:"Feature 9",page:"pdp",priority:"high",phase:"Phase 3 - 4-5 days",estHours:25,
+   title:"Cuyana-style product page layout",
+   bullets:["Split layout (desktop): sticky image gallery left (~55%) with hero + thumbnail strip, scrolling product info column right (~45%)","Right column order: breadcrumb → title + price → Afterpay → USP strip (F8) → colour swatches → size buttons → monogramming section (personalised only) → ATC button → feature highlights grid → accordions","Image gallery: thumbnail click swaps hero. Mobile: full-width swipe carousel, no sticky","Feature highlights: 3-column chip row (icon + label + descriptor) from custom.feature_highlights metafield — adapts per template type","Accordions: Dimensions & Care (custom.dimensions metafield), Shipping & Returns (static), Warranty (static) — collapsed by default, one open at a time, min 44px trigger","Monogramming section on personalised template: plain text initials input (max 3 chars, uppercase) above ATC, free monogramming callout + monogramming.svg — no TailorKit widget","Mobile: ATC button sticky-fixed to bottom of viewport while scrolling","3 alternate templates (bags / personalised / travel) auto-assigned via product tag — default product.json unchanged as fallback"],
+   files:["templates/product.bags.json — create new","templates/product.personalised.json — create new","templates/product.travel.json — create new","sections/main-product.liquid","snippets/product-template-content.liquid — create new","assets/tde-pdp.css — create new"]}
 ];
 const PL={collection:"Collection page",pdp:"Product page",sitewide:"Site-wide"};
 const ST=["todo","progress","review","done"];
