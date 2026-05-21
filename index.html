@@ -93,11 +93,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .brief-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
 .bpill{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:500}
 .bp-critical{background:var(--red);color:#fff}
-.bp-high{background:var(--amber-l);color:var(--amber)}
-.bp-collection{background:var(--blue-l);color:var(--blue)}
+.bp-high{background:var(--amber-l);color:var(--amber)}.bp-collection{background:var(--blue-l);color:var(--blue)}
 .bp-pdp{background:var(--purple-l);color:var(--purple)}
 .bp-sitewide{background:var(--amber-l);color:var(--amber)}
 .bp-phase{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.bp-med{background:var(--blue-l);color:var(--blue)}
 .brief-subsection{margin-bottom:1rem}
 .brief-subsection-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .brief-list{list-style:none;padding:0}
@@ -181,9 +181,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="main">
-  <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>10 developer features &middot; click any card to view details, update status, and log hours</p></div>
+  <div class="page-header"><h1>CRO &amp; UX dev tasks</h1><p>11 developer features &middot; click any card to view details, update status, and log hours</p></div>
   <div class="summary">
-    <div class="scard"><div class="scard-label">To do</div><div class="scard-val" id="s-todo">10</div></div>
+    <div class="scard"><div class="scard-label">To do</div><div class="scard-val" id="s-todo">11</div></div>
     <div class="scard"><div class="scard-label">In progress</div><div class="scard-val blue" id="s-progress">0</div></div>
     <div class="scard"><div class="scard-label">In review</div><div class="scard-val amber" id="s-review">0</div></div>
     <div class="scard"><div class="scard-label">Done</div><div class="scard-val green" id="s-done">0</div></div>
@@ -201,7 +201,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <div id="view-board">
     <div class="kanban">
-      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">10</span></div><div id="col-todo"></div></div>
+      <div class="col"><div class="col-header"><span class="col-name">📋 To do</span><span class="col-count" id="c-todo">11</span></div><div id="col-todo"></div></div>
       <div class="col"><div class="col-header"><span class="col-name">🔧 In progress</span><span class="col-count" id="c-progress">0</span></div><div id="col-progress"><div class="empty">no tasks yet</div></div></div>
       <div class="col"><div class="col-header"><span class="col-name">👀 In review</span><span class="col-count" id="c-review">0</span></div><div id="col-review"><div class="empty">no tasks yet</div></div></div>
       <div class="col"><div class="col-header"><span class="col-name">✅ Done</span><span class="col-count" id="c-done">0</span></div><div id="col-done"><div class="empty">no tasks yet</div></div></div>
@@ -240,6 +240,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <a href="#brief-8" onclick="scrollToBrief(8)">F8 &mdash; USP icon strip</a>
         <a href="#brief-9" onclick="scrollToBrief(9)">F9 &mdash; Cuyana-style PDP</a>
         <a href="#brief-10" onclick="scrollToBrief(10)">F10 &mdash; Hide qty selector</a>
+        <a href="#brief-11" onclick="scrollToBrief(11)">F11 &mdash; Afterpay widget</a>
       </div>
       <div class="brief-content">
 
@@ -260,8 +261,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
               <div style="font-size:12px;color:var(--text)">Do <strong>not</strong> render TailorKit widget inside Quick View. Use plain text input for initials only.</div>
             </div>
             <div style="background:var(--green-l);border:1px solid #9fe1cb;border-radius:var(--r);padding:10px 12px">
-              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7, F8, F9, F10 &mdash; Fully compatible &mdash; no blockers</div>
-              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip, Cuyana-style PDP, Hide qty selector all confirmed compatible.</div>
+              <div style="font-size:11px;font-weight:600;color:var(--green-d);margin-bottom:3px">F1, F5, F6, F7, F8, F9, F10, F11 &mdash; Fully compatible &mdash; no blockers</div>
+              <div style="font-size:12px;color:var(--text)">Filter, Complete the Look, Recently Viewed, Search, USP strip, Cuyana-style PDP, Hide qty selector, Afterpay widget all confirmed compatible.</div>
             </div>
           </div>
         </div>
@@ -269,10 +270,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="brief-section" style="background:var(--text);color:#fff;border-color:var(--text)">
           <div style="font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">TDE CRO &amp; UX Brief &mdash; March 2026</div>
           <div style="font-size:20px;font-weight:600;margin-bottom:8px">Developer brief &amp; technical specifications</div>
-          <div style="font-size:13px;opacity:.7;line-height:1.6">10 features to improve product discovery, conversion, and UX on thedailyedited.com.</div>
+          <div style="font-size:13px;opacity:.7;line-height:1.6">11 features to improve product discovery, conversion, and UX on thedailyedited.com.</div>
           <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap">
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Phase 2&ndash;5</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~173h estimated</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">~175h estimated</span>
             <span style="font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.15);color:#fff">Shopify / Liquid</span>
           </div>
         </div>
@@ -300,7 +301,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="brief-section-header"><div class="brief-num">3</div><div class="brief-section-title">Quick view modal (Cuyana-style)</div></div>
           <div class="brief-meta"><span class="bpill bp-high">High</span><span class="bpill bp-collection">Collection page</span><span class="bpill bp-phase">Phase 3 &middot; 4&ndash;5 days &middot; Est 25h</span><a class="ref-link" href="https://cuyana.com/collections/bags" target="_blank">Reference &#8599;</a></div>
           <div style="background:var(--red-l);border:1px solid #f09595;border-radius:var(--r);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--red);font-weight:600">&#9888; UpcArt: use routes.cart_add_url. TailorKit: plain text input only, no widget in modal.</div>
-          <ul class="brief-list"><li>Quick View button on hover (desktop) / always visible (mobile)</li><li>Modal: images left, info right — name, price, Afterpay, swatches, Add to Bag</li><li>Mobile: bottom sheet (85vh). Focus trapped (WCAG 2.1). Section Rendering API</li></ul>
+          <ul class="brief-list"><li>Quick View button on hover (desktop) / tap (mobile) on each product card</li><li>Modal: images left, info right — name, price, Afterpay, swatches, Add to Bag</li><li>Mobile: bottom sheet (85vh). Focus trapped (WCAG 2.1). Section Rendering API</li></ul>
           <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to create/modify</div><div class="files-block">snippets/quick-view.liquid &mdash; create new<br>snippets/product-card.liquid<br>assets/quick-view.js &mdash; create new<br>assets/quick-view.css &mdash; create new</div></div>
         </div>
 
@@ -451,6 +452,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">assets/tde-cro.css &mdash; add display:none rule for quantity wrapper</div></div>
         </div>
 
+        <div class="brief-section" id="brief-11">
+          <div class="brief-section-header"><div class="brief-num">11</div><div class="brief-section-title">Restyle Afterpay widget to match winnieandco layout</div></div>
+          <div class="brief-meta"><span class="bpill bp-med">Medium</span><span class="bpill bp-pdp">Product page</span><span class="bpill bp-phase">Phase 2 &middot; &lt;1 day &middot; Est 2h</span></div>
+          <div class="data-callout"><strong>Why:</strong> The current Afterpay installment strip under the personalise button needs to match the clean, compact single-line format seen on <a href="https://winnieandco.com/collections/new-in/products/andrea-shoulder-bag-sangria" target="_blank" style="color:var(--blue)">winnieandco.com</a> &mdash; &ldquo;or 4 interest-free payments of $X.XX with [Afterpay badge] [&#9432;]&rdquo;.</div>
+          <div class="brief-subsection"><div class="brief-subsection-title">What to do</div><ul class="brief-list">
+            <li>Replace any existing custom Afterpay markup in <code>sections/main-product.liquid</code> with the standard <code>&lt;afterpay-placement&gt;</code> web component</li>
+            <li>Bind <code>data-amount</code> to the selected variant price in cents via Liquid: <code>data-amount="{{ product.selected_or_first_available_variant.price }}"</code></li>
+            <li>Set <code>data-locale="en_AU"</code> and <code>data-currency="AUD"</code> (or match store locale)</li>
+            <li>On variant change, update the <code>data-amount</code> attribute via JS &mdash; Afterpay&rsquo;s JS automatically refreshes the placement when the attribute mutates</li>
+            <li>If F9 is in progress, mirror the same <code>&lt;afterpay-placement&gt;</code> snippet inside <code>snippets/product-template-content.liquid</code></li>
+          </ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">Visual reference (winnieandco.com)</div><ul class="brief-list">
+            <li>Single-line, left-aligned &mdash; &ldquo;or 4 interest-free payments of $X.XX with [Afterpay green logo] [&#9432; info icon]&rdquo;</li>
+            <li>Compact size: font ~13px, no extra vertical padding, sits cleanly below the personalise button</li>
+            <li>Afterpay logo renders in brand green via the JS component &mdash; no custom image needed</li>
+          </ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">Acceptance criteria</div><ul class="brief-list">
+            <li>Afterpay strip visible below the personalise/ATC button on all PDPs</li>
+            <li>Amount updates correctly when a different colour (sibling product) is selected</li>
+            <li>Clicking the info icon opens the Afterpay lightbox correctly</li>
+            <li>No layout shift &mdash; widget renders inline without a height jump on page load</li>
+            <li>Displays correctly on desktop (1440px) and mobile (375px)</li>
+          </ul></div>
+          <div class="brief-subsection"><div class="brief-subsection-title">Shopify files to modify</div><div class="files-block">sections/main-product.liquid &mdash; replace existing Afterpay markup with &lt;afterpay-placement&gt; component<br>assets/tde-cro.css &mdash; optional compact spacing tweaks for the widget</div></div>
+        </div>
+
         <div class="brief-section" style="background:var(--surface2)">
           <div style="font-size:15px;font-weight:600;margin-bottom:1rem">Testing &amp; success metrics</div>
           <ul class="brief-list">
@@ -463,6 +490,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <li>F9 split layout: gallery must remain sticky until all accordion content is scrolled past</li>
             <li>F9 mobile: sticky ATC bar must not obscure accordion content or footer</li>
             <li>F10: qty stepper hidden on all PDPs, add-to-bag still defaults to qty 1, no UpcArt regression</li>
+            <li>F11: Afterpay widget shows correct amount, info lightbox opens, no layout shift on load or variant change</li>
             <li>Deploy to test theme first &mdash; share preview URL before going live</li>
           </ul>
         </div>
@@ -571,7 +599,18 @@ const TASKS=[
   {id:10,num:"Feature 10",page:"pdp",priority:"high",phase:"Phase 2 - <1 day",estHours:2,
    title:"Hide quantity selector on PDP",
    bullets:["Hide the - 1 + quantity stepper on all PDPs — simplifies the buy flow and gives ATC full-width prominence","CSS-only fix in assets/tde-cro.css: .product-form__quantity { display: none !important; }","Confirm exact class on live theme — Dawn 15.x uses .product-form__input--quantity as the wrapper","Hidden input still submits quantity: 1 by default — no Liquid change required","If F9 is in progress, apply the same rule in assets/tde-pdp.css to cover all alternate templates","Test: qty stepper hidden on desktop (1440px) and mobile (375px), ATC still adds qty 1, UpcArt drawer opens correctly"],
-   files:["assets/tde-cro.css — add display:none rule for quantity wrapper"]}
+   files:["assets/tde-cro.css — add display:none rule for quantity wrapper"]},
+  {id:11,num:"Feature 11",page:"pdp",priority:"medium",phase:"Phase 2 - <1 day",estHours:2,
+   title:"Restyle Afterpay widget to match winnieandco layout",
+   bullets:[
+     "Current widget sits below the personalise button — position stays the same, styling needs updating to match the clean single-line format seen on winnieandco.com",
+     "Reference: winnieandco.com/collections/new-in/products/andrea-shoulder-bag-sangria — format: \"or 4 interest-free payments of $X.XX with [Afterpay green badge] [ⓘ]\", left-aligned, compact",
+     "Implementation: use the <afterpay-placement> web component with data-amount bound to the selected variant price in cents via Liquid",
+     "Remove any existing custom Afterpay markup and replace with the standard Afterpay JS-rendered component",
+     "data-amount updates on variant change — Afterpay JS auto-refreshes placements when data-amount attribute is mutated",
+     "If F9 (Cuyana-style PDP) is in progress, mirror the same snippet inside snippets/product-template-content.liquid"
+   ],
+   files:["sections/main-product.liquid — replace existing Afterpay markup with <afterpay-placement> component","assets/tde-cro.css — optional compact spacing tweaks for the widget"]}
 ];
 const PL={collection:"Collection page",pdp:"Product page",sitewide:"Site-wide"};
 const ST=["todo","progress","review","done"];
@@ -655,7 +694,7 @@ function openModal(id){
   document.getElementById("m-feature").textContent=t.num;
   document.getElementById("m-title").textContent=t.title;
   document.getElementById("m-phase").textContent=t.phase;
-  document.getElementById("m-priority").textContent=t.priority==="critical"?"Critical":"High";
+  document.getElementById("m-priority").textContent=t.priority==="critical"?"Critical":t.priority==="medium"?"Medium":"High";
   document.getElementById("m-page").textContent=PL[t.page];
   document.getElementById("m-bullets").innerHTML=t.bullets.map(b=>`<li>${b}</li>`).join('');
   document.getElementById("m-files").innerHTML=t.files.join('<br>');
